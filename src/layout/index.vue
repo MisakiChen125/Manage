@@ -1,17 +1,20 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
+    <!-- <div class="app-head">
+      1212
+    </div> -->
+    <!-- <div class="main"> -->
+      <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+        <sidebar class="sidebar-container"/>
     <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
-        <tags-view v-if="needTagsView" />
+      <div :class="{'fixed-header':fixedHeader}">       
       </div>
-      <app-main />
-      <right-panel v-if="showSettings">
-        <settings />
-      </right-panel>
+      <app-main /> 
+     
+    <!-- </div>z-->
     </div>
+   
+   
   </div>
 </template>
 
@@ -63,30 +66,41 @@ export default {
 
   .app-wrapper {
     @include clearfix;
-    position: relative;
+    // position: relative;
     height: 100%;
     width: 100%;
-
+    display: flex;
+    flex-direction: column;
+    background: #eee;
     &.mobile.openSidebar {
       position: fixed;
       top: 0;
     }
   }
-
+  .app-head{
+    width: 100%;
+    height: 60px;
+    background: #faa;
+  }
+  .main{
+    flex: 1;
+    background: #09f;
+    display: flex;
+  }
   .drawer-bg {
     background: #000;
     opacity: 0.3;
     width: 100%;
-    top: 0;
+    // top: 0;
     height: 100%;
     position: absolute;
     z-index: 999;
   }
 
   .fixed-header {
-    position: fixed;
-    top: 0;
-    right: 0;
+    // position: fixed;
+    // top: 0;
+    // right: 0;
     z-index: 9;
     width: calc(100% - #{$sideBarWidth});
     transition: width 0.28s;
@@ -100,3 +114,23 @@ export default {
     width: 100%;
   }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
