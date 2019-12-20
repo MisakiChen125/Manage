@@ -1,14 +1,13 @@
 <template>
   <div class="tepi_page">
     <div class="title">待批班级</div>
-    
+   
     <template>
-  
-        <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="classname" label="班级名" width="180"></el-table-column>
-        <el-table-column prop="subjectname" label="课程名称" width="180"></el-table-column>
-        <el-table-column prop="status" label="阅卷状态"></el-table-column>
-        <el-table-column prop="subjectname" label="课程名称" width="180"></el-table-column>
+        <el-table :data="classList.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="width: 100%">
+        <el-table-column prop="grade_name" label="班级名" ></el-table-column>
+        <el-table-column prop="subject_text" label="课程名称"></el-table-column>
+        <el-table-column prop="room_text" label="阅卷状态"></el-table-column>
+        <el-table-column prop="subject_text" label="课程名称" width="180"></el-table-column>
         <el-table-column prop="yield" label="成材率"></el-table-column>
         <el-table-column prop="operate" label="操作">
             <a href="#">批卷</a>
@@ -20,75 +19,67 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="currentPage"
+          :page-sizes="[5,10,15,20]"
+          :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="totle"
         ></el-pagination>
       </div>
     </template>
   </div>
 </template>
 <script>
+import {mapState,mapMutations,mapActions} from 'vuex'
 export default {
   props: {},
   components: {},
   data() {
-    return {
-      tableData: [
-          {
-              classname:"1704B",
-              subjectname:"实训一",
-              status:"",
-              yield:"80%"
-
-          },
-          {
-              classname:"1704B",
-              subjectname:"实训一",
-              status:"",
-              yield:"80%"
-
-          },
-          {
-              classname:"1704B",
-              subjectname:"实训一",
-              status:"",
-              yield:"80%"
-
-          },
-          {
-              classname:"1704B",
-              subjectname:"实训一",
-              status:"",
-              yield:"80%"
-
-          }
-
-      ],
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+    return {    
+      currentPage: 1,//当前页码
+      pageSize:5,//当前数据显示条数
+      totle:12
     };
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      classList:state=>state.studentClass.classList
+    })
+  },
   methods: {
+    ...mapMutations({
+      setStates:"studentClass/setStates"
+    }),
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+     
+      this.pageSize=val
+      this.currentPage=1
+
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-    }
+      
+      this.currentPage=val
+      console.log(val)
+      
+      // this.setStates({pageSize:this.pageSize,current:val})
+    },
+    ...mapActions({
+      acquireYetClass:"studentClass/acquireYetClass"
+    })
+    
   },
-  created() {},
+  created() {
+    this.acquireYetClass()
+  },
   mounted() {}
 };
 </script>
 <style lang="scss" scoped>
 .tepi_page{
     margin: 20px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 
@@ -102,8 +93,11 @@ export default {
 }
 .el-table{
   border-radius: 10px;
-  
- 
+}
+.block{
+  width: 100%;
+  text-align: right;
+  margin: 15px 10px;
 }
  
 </style>
