@@ -1,5 +1,6 @@
 <template>
   <div class="itemadd">
+    <!-- {{AllQuestions}} -->
     <h3>添加试卷</h3>
     <div class="test">
       <div class="test_title">
@@ -35,9 +36,14 @@ export default {
       arr: ["考试类型", "课程类型", "题目类型"]
     };
   },
-  computed: {},
-  methods: {},
-  created() {},
+  computed: {
+  
+  },
+  methods: {
+    
+  },
+  created() {
+  },
   mounted() {}
 };
 </script>
@@ -67,7 +73,7 @@ export default {
     border-radius: 10px;
     padding: 1rem;
     box-sizing: border-box;
-    
+
     .test_title {
       width: 100%;
       display: flex;
@@ -116,7 +122,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-   
+
     b {
       font-weight: normal;
       padding-bottom: 0.5rem;
@@ -130,7 +136,7 @@ export default {
       outline: none;
       background: #fff;
       border-radius: 2px;
-      font-size: .95rem;
+      font-size: 0.95rem;
     }
   }
 }

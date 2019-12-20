@@ -4,6 +4,7 @@
     <div class="test_title">
       <ul class="tt_nav">
         <li>
+          {{AllQuestions}}
           <h3>课程类型：</h3>
         </li>
         <li v-for="(item,index) in nav" :key="index">{{item}}</li>
@@ -39,6 +40,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   props: {},
   components: {},
@@ -58,9 +60,19 @@ export default {
       ]
     };
   },
-  computed: {},
-  methods: {},
-  created() {},
+  computed: {
+    ...mapState({
+      AllQuestions: state => state.questions.AllQuestions
+    })
+  },
+  methods: {
+    ...mapActions({
+      acquireAllQuestions: "questions/acquireAllQuestions"
+    })
+  },
+  created() {
+    this.acquireAllQuestions();
+  },
   mounted() {}
 };
 </script>
