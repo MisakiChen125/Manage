@@ -11,7 +11,11 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
-
+import itemmanageRoutes from './modules/itemmanage'
+import usersRoutes from './modules/users'
+import testRoutes from './modules/test'
+import classRoutes from './modules/classmate'
+import yueRoutes from './modules/yuejuan'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -39,6 +43,11 @@ import nestedRouter from './modules/nested'
  * all roles can be accessed
  */
 export const constantRoutes = [
+  itemmanageRoutes,
+  usersRoutes,
+  testRoutes,
+  classRoutes,
+  yueRoutes,
   {
     path: '/redirect',
     component: Layout,
@@ -107,6 +116,19 @@ export const constantRoutes = [
       }
     ]
   },
+  //考试页
+  // {
+  //   path: '/exam',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/documentation/index'),
+  //       name: 'Documentation',
+  //       meta: { title: '考试系统', icon: 'documentation' }
+  //     }
+  //   ]
+  // },
   {
     path: '/guide',
     component: Layout,
@@ -201,6 +223,7 @@ export const asyncRoutes = [
   chartsRouter,
   nestedRouter,
   tableRouter,
+  
 
   {
     path: '/example',

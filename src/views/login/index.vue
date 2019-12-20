@@ -142,7 +142,7 @@ export default {
   destroyed() {
     // window.removeEventListener('storage', this.afterQRScan)
   },
-  methods: {
+  methods: {  
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -159,9 +159,12 @@ export default {
           this.loading = true
           try {
             await this.$store.dispatch('user/login', this.loginForm)
-            this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-          } catch (e) {}
-          this.loading = false
+             this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+          } catch (e) {
+            console.log(e)
+          }  
+              this.loading = false
+           
         } else {
           return false
         }

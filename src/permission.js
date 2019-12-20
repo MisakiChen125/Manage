@@ -1,3 +1,5 @@
+
+  
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
@@ -11,7 +13,7 @@ NProgress.configure({ showSpinner: true }) // NProgress Configuration
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
-  // start progress bar
+  // start progress barhgfg
   NProgress.start()
 
   // set page title
