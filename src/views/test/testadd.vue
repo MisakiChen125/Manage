@@ -150,7 +150,8 @@ export default {
 .test-sec {
   flex: 1;
   width: 100%;
-  padding: 0 5px;
+ padding: 1rem ;
+ box-sizing: border-box;
   background: #ffffff;
   margin-top: 5px;
   border-radius: 13px 0;
