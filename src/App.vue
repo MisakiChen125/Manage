@@ -6,27 +6,27 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 <style lang="scss">
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   list-style: none;
 }
-html,body{
+html,
+body {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-#app{
+#app {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  
 }
 </style>
