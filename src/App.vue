@@ -28,4 +28,8 @@ body {
   height: 100%;
   display: flex;
 }
+.hasTagsView .app-main {
+  display: flex;
+  flex-direction: column;
+}
 </style>

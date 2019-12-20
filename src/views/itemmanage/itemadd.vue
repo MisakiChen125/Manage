@@ -41,12 +41,6 @@ export default {
   mounted() {}
 };
 </script>
-<style lang="scss">
-.hasTagsView .app-main {
-  display: flex;
-  flex-direction: column;
-}
-</style>
 <style scoped lang="scss">
 .itemadd {
   width: 100%;
