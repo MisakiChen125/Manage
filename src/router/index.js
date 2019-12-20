@@ -11,6 +11,11 @@ import testRoutes from './modules/test'
 import classRoutes from './modules/classmate'
 import yueRoutes from './modules/yuejuan'
 export const constantRoutes = [
+  itemmanageRoutes,
+  usersRoutes,
+  testRoutes,
+  classRoutes,
+  yueRoutes,
   {
     path: '/redirect',
     component: Layout,
@@ -55,11 +60,6 @@ export const constantRoutes = [
       }
     ]
   },
-  itemmanageRoutes,
-  usersRoutes,
-  testRoutes,
-  classRoutes,
-  yueRoutes,
   {
     path: 'external-link',
     component: Layout,

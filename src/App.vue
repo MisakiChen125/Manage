@@ -11,10 +11,12 @@ export default {
 </script>
 <style lang="scss">
 * {
-  padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  padding: 0;
   list-style: none;
+  text-decoration: none;
+  user-select: none;
+  box-sizing: border-box;
 }
 html,
 body {
@@ -26,6 +28,9 @@ body {
 #app {
   width: 100%;
   height: 100%;
+  display: flex;
+}
+.hasTagsView .app-main {
   display: flex;
   flex-direction: column;
 }

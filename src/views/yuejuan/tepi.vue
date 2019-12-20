@@ -5,10 +5,10 @@
     <template>
   
         <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="classname" label="班级名"></el-table-column>
-        <el-table-column prop="subjectname" label="课程名称" ></el-table-column>
+        <el-table-column prop="classname" label="班级名" width="180"></el-table-column>
+        <el-table-column prop="subjectname" label="课程名称" width="180"></el-table-column>
         <el-table-column prop="status" label="阅卷状态"></el-table-column>
-        <el-table-column prop="subjectname" label="课程名称"></el-table-column>
+        <el-table-column prop="subjectname" label="课程名称" width="180"></el-table-column>
         <el-table-column prop="yield" label="成材率"></el-table-column>
         <el-table-column prop="operate" label="操作">
             <a href="#">批卷</a>
@@ -81,7 +81,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     }
-  }
+  },
+  created() {},
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
@@ -98,9 +100,10 @@ export default {
   font-size: 20px;
   margin-bottom: 15px;
 }
-.block{
-  width: 100%;
-  text-align: right;
-  margin-top: 20px;
+.el-table{
+  border-radius: 10px;
+  
+ 
 }
+ 
 </style>
