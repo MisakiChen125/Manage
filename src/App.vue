@@ -29,6 +29,13 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  .itemadd,
+  .classify,
+  .itemlook,
+  .usersadd,
+  .usershow {
+    overflow-y: auto;
+  }
 }
 .hasTagsView .app-main {
   display: flex;

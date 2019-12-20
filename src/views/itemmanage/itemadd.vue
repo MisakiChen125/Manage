@@ -67,6 +67,7 @@ export default {
     border-radius: 10px;
     padding: 1rem;
     box-sizing: border-box;
+    
     .test_title {
       width: 100%;
       display: flex;

@@ -87,7 +87,7 @@ export function noStudent() {
 }
 
 // 已经分班学生接口
-export function noStudent() {
+export function YetStudent() {
     return request({
         url:'/manger/student',
         method:'get'
@@ -116,7 +116,7 @@ export function acquireYetClass() {
 
 
 // 更新学生信息接口
-export function acquireYetClass(query) {
+export function updateYetClass(query) {
     return request({
         url:'/manger/student/edit',
         method:'put',

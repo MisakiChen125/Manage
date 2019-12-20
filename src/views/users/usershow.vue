@@ -7,10 +7,10 @@
     <div class="main">
       <h3 class="m_title">用户数据</h3>
       <div class="table">
-        <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column prop="date" label="用户名" width="150"></el-table-column>
-          <el-table-column prop="name" label="密码"></el-table-column>
-          <el-table-column prop="address" label="身份" width="100"></el-table-column>
+        <el-table :data="tableData" style="width: 100%">
+          <el-table-column prop="date" label="用户名" width="180"></el-table-column>
+          <el-table-column prop="name" label="密码" ></el-table-column>
+          <el-table-column prop="address" label="身份" width="180"></el-table-column>
         </el-table>
       </div>
     </div>
@@ -32,34 +32,54 @@ export default {
       ],
       tableData: [
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         },
         {
-          date:"gwx",name:"1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",address:"出题者"
+          date: "gwx",
+          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
+          address: "出题者"
         }
       ]
     };
