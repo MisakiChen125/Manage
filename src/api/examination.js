@@ -3,7 +3,7 @@
 import request from '@/utils/request'
 
 // 创建试卷接口
-export function createExam(data) {
+export function creExam(data) {
     return request({
         url:'/exam/exam',
         method:'post',
@@ -30,7 +30,7 @@ export function acquireExamList(query) {
 }
 
 // 获取试卷详情（教师端）
-export function acquireExamList() {
+export function acquirePaperList() {
     return request({
         url:'/exam/exam/w5tcy-g2dts',
         method:'get',
@@ -38,7 +38,7 @@ export function acquireExamList() {
 }
 
 // 删除试卷
-export function acquireExamList() {
+export function delExamList() {
     return request({
         url:'/exam/exam/w5tcy-g2dts',
         method:'delete',

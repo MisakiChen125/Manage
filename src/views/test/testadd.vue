@@ -11,10 +11,10 @@
         <p>选择考试类型:</p>
         <el-select v-model="value">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="(item,index) in examAllList"
+            :key="index"
+            :label="item.exam_name"
+            :value="item.exam_name"
           ></el-option>
         </el-select>
       </div>
@@ -23,10 +23,10 @@
         <p>选择课程:</p>
         <el-select v-model="value">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="(item,index) in getClass"
+            :key="index"
+            :label="item.subject_text"
+            :value="item.subject_text"
           ></el-option>
         </el-select>
       </div>
@@ -38,7 +38,7 @@
           controls-position="right"
           @change="handleChange"
           :min="1"
-          :max="200"
+          :max="10"
         ></el-input-number>
       </div>
       <!-- 考试的时间 -->
@@ -69,33 +69,12 @@
   </div>
 </template>
 <script>
+import { mapState,mapActions } from 'vuex';
 export default {
   props: {},
   components: {},
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "周考一"
-        },
-        {
-          value: "选项2",
-          label: "周考二"
-        },
-        {
-          value: "选项3",
-          label: "周考三"
-        },
-        {
-          value: "选项4",
-          label: "月考A"
-        },
-        {
-          value: "选项5",
-          label: "月考B"
-        }
-      ],
       value: "",
       num: 1,
        pickerOptions: {
@@ -126,11 +105,23 @@ export default {
       };
     
   },
-  computed: {},
-  methods: {
-    handleChange(value) {}
+  computed: {
+    ...mapState({
+         examAllList:state=>state.questions.examList,
+         getClass:state=>state.questions.getClass,
+    })
   },
-  created() {},
+  methods: {
+    handleChange(value) {},
+    ...mapActions({
+        examType:'questions/examType',
+        examAllType:'questions/examAllType', 
+    })
+  },
+  created() {
+    this.examType(),
+    this.getQuestionsType()
+  },
   mounted() {}
 };
 </script>

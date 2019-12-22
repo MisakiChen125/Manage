@@ -28,9 +28,11 @@
                     </el-table-column>
                 </el-table>
         </div>
+       
     </div>
 </template>
 <script>
+import {mapState,mapActions} from 'vuex'
 export default {
     props:{
 
@@ -48,19 +50,19 @@ export default {
         }
     },
     computed:{
-
+        
     },
     methods:{
-
+       
     },
     created(){
 
     },
     mounted(){
-
+        
     }
 }
-</script>
+</script>:
 <style lang="scss" scoped>
 .class_page{
     width: 100%;
