@@ -103,20 +103,13 @@ export default {
     async getRoutes() {
       const res = await getRoutes()
       this.serviceRoutes = res.data
-<<<<<<< HEAD
-      this.routes = this.generateRoutes(res.data)
-=======
       const routes = this.generateRoutes(res.data)
       this.routes = this.i18n(routes)
->>>>>>> 9437fb4a056f14e2c17476ff372cdfdd3aaa59a7
     },
     async getRoles() {
       const res = await getRoles()
       this.rolesList = res.data
     },
-<<<<<<< HEAD
-
-=======
     i18n(routes) {
       const app = routes.map(route => {
         route.title = i18n.t(`route.${route.title}`)
@@ -127,7 +120,6 @@ export default {
       })
       return app
     },
->>>>>>> 9437fb4a056f14e2c17476ff372cdfdd3aaa59a7
     // Reshape the routes structure so that it looks the same as the sidebar
     generateRoutes(routes, basePath = '/') {
       const res = []

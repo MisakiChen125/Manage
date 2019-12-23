@@ -1,27 +1,34 @@
-import {acquireYetClass} from '@/api/studentClass'
+import {acquireYetClass,addClass} from '@/api/studentClass'
+
 const state={
-    arrList:[],
     classList:[],
-    cname:"",
-    jname:""
+    addList:[]
+   
 }
 const mutations={
     setClassList(state,payload){
-        state.classList=payload
-        state.arrList=payload
+        state.classList=payload;
+        state.arrList=payload;
     },
-    // setStates(state,payload){
-    //     console.log(payload)
-    //     state.classList=JSON.parse(JSON.stringify(state.arrList)).slice((payload.current*1-1)*payload.pageSize,payload.current*payload.pageSize)
-    //     // console.log(state.classList)
-    // }
+    setAddList(state,payload){
+        state.addList=payload;
+    }
+   
+   
 }
 const actions={
     async acquireYetClass({commit},payload){
         let res=await acquireYetClass(payload)
         commit('setClassList',res.data)
-        console.log(res.data)
+        // console.log(res.data)
+    },
+    async addClass({commit},payload){
+        let res=await addClass(payload)
+        commit('setAddList',res)
+        console.log(res)
     }
+    
+    
 }
 export default {
     namespaced:true,

@@ -1,3 +1,4 @@
+import { mapState, mapActions } from 'vuex';
 <template>
   <div class="student_page">
     <div class="titles">学生管理</div>
@@ -27,12 +28,12 @@
       </el-form>
     </div>
     <div class="student_form">
-      <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+      <el-table :data="studentMsg" style="width: 100%" :row-class-name="tableRowClassName">
         <el-table-column prop="name" label="姓名" width="180"></el-table-column>
         <el-table-column prop="card" label="学号" width="180"></el-table-column>
         <el-table-column prop="class" label="班级"></el-table-column>
         <el-table-column prop="room" label="教室"></el-table-column>
-        <el-table-column prop="pwd" label="密码"></el-table-column>
+        <el-table-column label="密码">{{pwd}}</el-table-column>
         <el-table-column  label="操作">
             <span>删除</span>
         </el-table-column>
@@ -57,6 +58,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapActions} from 'vuex'
 export default {
   data() {
     return {
@@ -64,18 +66,17 @@ export default {
         user: "",
         region: ""
       },
-      tableData: [{
-          name:"小樱",
-          card:"1907303122",
-          class:'1704B',
-          room:"3403",
-          pwd:"@q1234"
-        }],
-         currentPage1: 5,
+      pwd:"Qaa123!",
+      currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4
     };
+  },
+  computed: {
+    ...mapState({
+      studentMsg:state=>state.studentMsg.studentMsg
+    })
   },
   methods: {
     onSubmit() {
@@ -94,8 +95,17 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-    }
-  }
+    },
+    ...mapActions({
+      
+    }),
+    ...mapActions({
+      getStudentMsg:"studentMsg/acquireStudent"
+    })
+  },
+  created() {
+    this.getStudentMsg()
+  },
 };
 </script>
 <style lang="scss" scoped>
