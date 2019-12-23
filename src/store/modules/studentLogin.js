@@ -16,7 +16,7 @@ const actions={
     async acquireStudent({commit},payload){
         let res=await acquireStudent(payload)
         commit('setStudentmsg',res)
-        // console.log(res)
+        console.log(res)
     }
     
 }

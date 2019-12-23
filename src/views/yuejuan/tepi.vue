@@ -10,7 +10,7 @@
         <el-table-column prop="subject_text" label="课程名称" width="180"></el-table-column>
         <el-table-column prop="yield" label="成材率"></el-table-column>
         <el-table-column prop="operate" label="操作">
-            <a href="#">批卷</a>
+            <a href="#" @click="tiao">批卷</a>
         </el-table-column>
       </el-table>
      
@@ -65,7 +65,10 @@ export default {
     },
     ...mapActions({
       acquireYetClass:"studentClass/acquireYetClass"
-    })
+    }),
+    tiao(){
+      this.$router.push('/yuejuan/pijuan')
+    }
     
   },
   created() {

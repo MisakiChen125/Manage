@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     ...mapState({
-      studentMsg:state=>state.studentMsg.studentMsg
+      studentMsg:state=>state.studentLogin.studentMsg
     })
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
       
     }),
     ...mapActions({
-      getStudentMsg:"studentMsg/acquireStudent"
+      getStudentMsg:"studentLogin/acquireStudent"
     })
   },
   created() {
