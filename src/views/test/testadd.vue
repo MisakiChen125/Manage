@@ -18,18 +18,20 @@
           ></el-option>
         </el-select>
       </div>
+
       <!-- 选择课程 -->
-      <div class="test-name">
+      <div class="testBam">
         <p>选择课程:</p>
-        <el-select v-model="value">
+        <el-select v-model="value1">
           <el-option
             v-for="(item,index) in getClass"
             :key="index"
             :label="item.subject_text"
-            :value="item.subject_text"
+            :value="item.subject_text" 
           ></el-option>
         </el-select>
       </div>
+
       <!-- 试卷的题量 -->
       <div class="test-name">
         <p>设置题量:</p>
@@ -55,7 +57,7 @@
         </div>   
          <div class="block">
           <el-date-picker
-            v-model="value2"
+            v-model="value3"
             type="datetime"
             placeholder="选择结束日期时间"
             align="right"
@@ -120,7 +122,7 @@ export default {
   },
   created() {
     this.examType(),
-    this.getQuestionsType()
+    this.examAllType()
   },
   mounted() {}
 };
@@ -146,6 +148,18 @@ export default {
   background: #ffffff;
   margin-top: 5px;
   border-radius: 13px 0;
+}
+.testBam{
+   width: 100%;
+  p {
+    margin-top: 20px;
+  }
+  .el-input {
+    margin-top: 10px;
+    border-radius: none;
+    width: 500px;
+    height: 45px;
+  }
 }
 .test-name {
   width: 100%;
