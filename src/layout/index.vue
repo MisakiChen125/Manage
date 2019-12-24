@@ -79,6 +79,7 @@ export default {
   flex: 1;
   background: #09f;
   display: flex;
+
 }
 .drawer-bg {
   background: #000;
@@ -106,24 +107,9 @@ export default {
 .mobile .fixed-header {
   width: 100%;
 }
+.app-main{
+  width: 100%;
+  height: 100%;
+overflow-y: scroll;
+}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,110 +1,80 @@
 <template>
-  <div class="classify">
-    <h3>试卷分类</h3>
-    <div class="test">
-      <button>+ 添加类型</button>
-      <div class="table">
-        <el-table :data="tableData" style="width: 100%;">
-          <el-table-column class="table_title" prop="date" label="类型ID" style="background:#fcfcfc"></el-table-column>
-          <el-table-column class="table_title" prop="name" label="类型名称" style="background:#fcfcfc"></el-table-column>
-          <el-table-column class="table_title" prop="address" label="操作" style="background:#fcfcfc"></el-table-column>
-        </el-table>
-      </div>
+<div class="TestClassification">
+    <h2>试题分类</h2>
+    <div class="classifyTest">
+        <el-button type="primary">+ 添加类型 </el-button>
+        <div class="tableList">
+            <el-table :data="ExamTypeList" style="width: 100%" :header-cell-style="{background:'#f4f4f4',color:'#555',lineHeight:'30px',fontSize:'14px'}">
+                <el-table-column label="类型ID" width="660">
+                    <template slot-scope="scope">
+                        <i class="el-icon-star-off"></i>
+                        <span style="margin-left: 10px">{{ scope.row.questions_type_id }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="类型名称" width="380">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">{{ scope.row.questions_type_text }}</el-tag>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
-  </div>
+</div>
 </template>
+
 <script>
+import {
+    mapState,
+    mapMutations,
+    mapActions
+} from 'vuex'
 export default {
-  props: {},
-  components: {},
-  data() {
-    return {
-      tableData: [
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        }
-      ]
-    };
-  },
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
-};
+    computed: {
+       
+    },
+    created() {
+       
+    },
+    methods: {
+       
+    }
+}
 </script>
-<style scoped lang="scss">
-.classify {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #f3f3f3;
-  padding: 1rem;
-  box-sizing: border-box;
-  h3 {
-    width: 100%;
-    font-weight: normal;
-    flex-shrink: 0;
-    margin: 1rem 0;
-    padding-bottom: 0.5rem;
+
+<style lang="scss" scoped>
+.TestClassification {
+    height: 100%;
+    padding: 0px 24px 24px;
     box-sizing: border-box;
-  }
-  .test {
+    min-height: calc(100vh - 20vh - 20px);
+}
+
+h2 {
+    margin-bottom: 0.5em;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.classifyTest {
     width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
+    background: rgb(255, 255, 255);
+    padding: 24px;
+    margin: 0px 0px 20px;
     border-radius: 10px;
-    padding: 1rem;
-    box-sizing: border-box;
-    button {
-      width: 15%;
-      padding: 0.5rem 0;
-      box-sizing: border-box;
-      white-space: nowrap;
-      background: -webkit-gradient(
-        linear,
-        right top,
-        left top,
-        from(#4e75ff),
-        to(#0139fd)
-      ) !important;
-      background: linear-gradient(270deg, #4e75ff, #0139fd) !important;
-      border: 0;
-      color: #fff;
-      border-radius: 2px;
-      outline: none;
-    }
-    .table {
-      width: 100%;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      margin-top: 1rem;
-    }
-  }
+    min-height: calc(100vh - 20vh - 20px);
+}
+
+.tableList {
+    margin-top: 30px;
 }
 </style>

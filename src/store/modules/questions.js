@@ -1,10 +1,12 @@
 import { examType, examAllType } from '@/api/questions'
-import { acquireExamList } from '@/api/examination'
+import { acquireExamList ,creExam} from '@/api/examination'
 const state = {
     examList: [],
     getClass: [],
     //  试卷列表的信息
-    tableData: []
+    tableData: [],
+    //接收传递的参数
+    data:""
 }
 const mutations = {
     // 考试类型
@@ -17,6 +19,10 @@ const mutations = {
     },
     getAcquire(state, payload) {
         state.tableData = payload.exam
+    },
+    updateExam(state,payload){
+        state.data=payload
+        //console.log(state.data,".....data")
     }
 }
 
@@ -25,6 +31,7 @@ const actions = {
     async  examType({ commit }) {
         let res = await examType();
         commit('getExamList', res)
+        
     },
     // 获取所有的课程
     async  examAllType({ commit }) {
@@ -36,6 +43,10 @@ const actions = {
         commit('getAcquire', res)
         console.log(res.exam);
     },
+    async creExam({commit},payload){
+        let res=await creExam(payload)
+        commit("updateExam",res.data)
+    }
 }
 
 export default {

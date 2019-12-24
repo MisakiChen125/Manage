@@ -21,6 +21,11 @@ const yueRoutes = {
         meta:{
           title:'待批班级'
         }
+      },{
+        path: 'pijuan',
+        name:'pijuan',
+        component: () => import('@/views/yuejuan/pijuan'),
+        
       }
         
       

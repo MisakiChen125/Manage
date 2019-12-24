@@ -4,12 +4,12 @@
     <section class="test-sec">
       <div class="test-name">
         <p>试卷名称:</p>
-        <el-input placeholder="请输入内容"></el-input>
+        <el-input placeholder="请输入内容" v-model="title"></el-input>
       </div>
       <!-- 选择考试的类型 -->
       <div class="test-name">
         <p>选择考试类型:</p>
-        <el-select v-model="value">
+        <el-select v-model="exam_id">
           <el-option
             v-for="(item,index) in examAllList"
             :key="index"
@@ -22,7 +22,7 @@
       <!-- 选择课程 -->
       <div class="testBam">
         <p>选择课程:</p>
-        <el-select v-model="value1">
+        <el-select v-model="subject_id">
           <el-option
             v-for="(item,index) in getClass"
             :key="index"
@@ -36,7 +36,7 @@
       <div class="test-name">
         <p>设置题量:</p>
         <el-input-number
-          v-model="num"
+          v-model="number"
           controls-position="right"
           @change="handleChange"
           :min="1"
@@ -48,25 +48,27 @@
         <p>考试时间:</p>
         <div class="block">
           <el-date-picker
-            v-model="value2"
+            v-model="start_time"
             type="datetime"
             placeholder="选择开始日期时间"
             align="right"
+            value-format="timestamp"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </div>   
          <div class="block">
           <el-date-picker
-            v-model="value3"
+            v-model="end_time"
             type="datetime"
             placeholder="选择结束日期时间"
             align="right"
+            value-format="timestamp"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </div>     
       </div>
       <!-- 按钮 -->
-       <el-button type="primary">创建试卷</el-button>
+       <el-button type="primary" @click="tabCreat">创建试卷</el-button>
     </section>
   </div>
 </template>
@@ -77,7 +79,6 @@ export default {
   components: {},
   data() {
     return {
-      value: "",
       num: 1,
        pickerOptions: {
           shortcuts: [{
@@ -101,9 +102,12 @@ export default {
             }
           }]
         },
-        value1: '',
-        value2: '',
-        value3: ''
+        title:"",//试卷名称
+        subject_id:"",//学科
+        exam_id:"",//试卷类型
+        number:3,//题量
+        start_time:"",//开始时间
+        end_time:""//结束时间
       };
     
   },
@@ -118,7 +122,23 @@ export default {
     ...mapActions({
         examType:'questions/examType',
         examAllType:'questions/examAllType', 
-    })
+        creExam:"questions/creExam"
+    }),
+    tabCreat(){
+      let data={
+        title:this.title,
+        subject_id:this.subject_id,
+        exam_id:this.exam_id,
+        number:this.number,
+        start_time:this.start_time,
+        end_time:this.end_time
+      }
+//      console.log(data,"....vue")
+      this.creExam(data)
+      if(this.title!=""&&this.subject_id!=""&&this.exam_id!=""&&this.number!=""&&this.start_time!=""&&this.end_time!=""){
+      this.$router.push("testCreate")
+      }
+    }
   },
   created() {
     this.examType(),

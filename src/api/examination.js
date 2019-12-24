@@ -3,11 +3,12 @@
 import request from '@/utils/request'
 
 // 创建试卷接口
-export function creExam(data) {
+export function creExam(payload) {
+  //  console.log(payload,"----exam.js")
     return request({
         url:'/exam/exam',
         method:'post',
-        data
+        data:payload
     })
 }
 

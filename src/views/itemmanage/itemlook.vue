@@ -1,165 +1,196 @@
 <template>
-  <div class="itemlook">
-    <h3>查看试题</h3>
-    <div class="test_title">
-      <ul class="tt_nav">
-        <li>
-          <h3>课程类型：</h3>
-        </li>
-        <li v-for="(item,index) in nav" :key="index">{{item}}</li>
-      </ul>
-      <ul class="tt_main">
-        <li>
-          <h3>考试类型：</h3>
-          <select name id></select>
-        </li>
-        <li>
-          <h3>考试类型：</h3>
-          <select name id></select>
-        </li>
-        <li>
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
-        </li>
-      </ul>
-    </div>
-    <div class="test_main">
-      <div class="tm_item" v-for="(item,index) in 5" :key="index">
-        <div class="tm_i_left">
-          <p>机器人扫描</p>
-          <ul>
-            <li>代码补全</li>
-            <li>javaScript上</li>
-            <li class="last">周考一</li>
-          </ul>
-          <span>dingshaoshan 发布</span>
+<div class="TestClassification">
+    <h2>查看试题</h2>
+    <div class="search-modules">
+        <div class="classid">
+            <b>课程类型：</b>
+            <div class="noselect">
+                <span @click="clickAll" :class="{active:allShow}">All</span>
+                <span v-for="(item,index) in ClassList" :key="index" :class="{active:item.show}" @click="changecur(item)">{{item.subject_text}}</span>
+            </div>
         </div>
-        <span class="tm_i_right">编辑</span>
-      </div>
+        <div class="test-select">
+            <div>
+                <p>
+                    请选择考试类型：
+                    <el-select v-model="Evalue" clearable placeholder="请选择" @change="examType">
+                        <el-option v-for="(item,index) in ExamList" :key="index" :label="item.exam_name" :value="item"></el-option>
+                    </el-select>
+                </p>
+            </div>
+
+            <div>
+                <p>
+                    请选择题目类型：
+                    <el-select v-model="Qvalue" clearable placeholder="请选择" @change="QuestionType">
+                        <el-option v-for="(item,index) in ExamTypeList" :key="index" :label="item.questions_type_text" :value="item"></el-option>
+                    </el-select>
+                </p>
+            </div>
+
+            <div>
+                <el-button type="primary" icon="el-icon-search" @click="search">查询</el-button>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="allTest">
+        <el-table :data="AllTextList" style="width: 100%" :header-cell-style="{display:'none'}" @row-click.self="detail">
+            <el-table-column>
+                <template slot-scope="scope" style="padding-left: 100px">
+                    <p>{{scope.row.title}}</p>
+                    <p>
+                        <el-tag>{{ scope.row.questions_type_text}}</el-tag>
+                        <el-tag type="info">{{scope.row.subject_text}}</el-tag>
+                        <el-tag type="warning">{{scope.row.exam_name}}</el-tag>
+                    </p>
+                    <p>
+                        <el-tag type="success">{{scope.row.user_name}}发布</el-tag>
+                    </p>
+                </template>
+            </el-table-column>
+            <el-table-column width="100">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+</div>
 </template>
+
 <script>
+import {
+    mapState,
+    mapMutations,
+    mapActions
+} from "vuex";
+
 export default {
-  props: {},
-  components: {},
-  data() {
-    return {
-      nav: [
-        "All",
-        "javaScript上",
-        "javaScript下",
-        "模块化开发",
-        "移动端开发",
-        "node基础",
-        "组件化开发",
-        "渐进式开发",
-        "javaScript高级",
-        "node高级"
-      ]
-    };
-  },
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
+    data() {
+        return {
+            // cur: 0,
+            // Evalue: "", //考试类型
+            // Qvalue: "", //题目类型
+            // allShow: false, //全选
+            // subject_id: "", //课程id
+            // EID: "",
+            // QID: ""
+        };
+    },
+    computed: {
+       
+    },
+    async created() {
+     
+    },
+    methods: {
+       
+    }
 };
 </script>
-<style scoped lang="scss">
-.itemlook {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #f3f3f3;
-  padding: 1rem;
-  box-sizing: border-box;
-  & > h3 {
-    width: 100%;
-    font-weight: normal;
-    flex-shrink: 0;
-    margin: 1rem 0;
-    padding-bottom: 0.5rem;
-    box-sizing: border-box;
-  }
-  .test_title,
-  .test_main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 10px;
-    padding: 1rem;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    box-sizing: border-box;
-    margin: 0.5rem 0;
-    .tm_item {
-      width: 100%;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #f0f0f0;
-      .tm_i_left {
-        flex: 1;
-        p {
-          width: 100%;
-          padding: 0.5rem 0;
-          box-sizing: border-box;
-        }
-        ul {
-          width: 100%;
-          display: flex;
-          padding: 0.5rem 0;
-          box-sizing: border-box;
-          li {
-            padding: 0.1rem 0.5rem;
-            box-sizing: border-box;
-            color: skyblue;
-            background: #ceeaec;
-            border: 1px solid #44bbde;
-            margin-right: 0.5rem;
-            &.last {
-              background: orange;
-              color: orangered;
-              border: 1px solid orangered;
-            }
-          }
-        }
-      }
-      span {
-        color: #00f;
-        font-size: 0.85rem;
-      }
-    }
-    .tt_nav,
-    .tt_main {
-      display: flex;
-      padding: 1rem;
-      box-sizing: border-box;
-      align-items: center;
 
-      & > li {
-        padding: 0 0.5rem;
-        box-sizing: border-box;
-        white-space: nowrap;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        h3 {
-          font-weight: normal;
-          font-size: 1rem;
-        }
-        select {
-          width: 10rem;
-          padding: 0.35rem 0.5rem;
-          box-sizing: border-box;
-          border: 1px solid #dadada;
-        }
-      }
+<style lang="scss" scoped>
+.TestClassification {
+    height: 100%;
+    padding: 0px 24px 24px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 20vh - 20px);
+}
+
+h2 {
+    padding: 20px 10px;
+    margin-top: 10px;
+    font-weight: normal;
+}
+
+.tableList {
+    width: 100%;
+    background: rgb(255, 255, 255);
+    padding: 24px;
+    margin: 0px 0px 20px;
+    border-radius: 10px;
+    min-height: calc(100vh - 20vh - 20px);
+}
+
+.tableList {
+    margin-top: 30px;
+}
+
+.search-modules {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    margin: 0px 0px 10px;
+    border-radius: 10px;
+    padding-left: 2%;
+
+    span {
+        line-height: 40px;
+        font-size: 12px;
+        padding: 10px 10px;
+        margin: 4px;
     }
-    .tt_main > li {
-      padding-right: 5%;
+}
+
+.test-select {
+    display: flex;
+
+    >div {
+        padding-right: 50px;
+
+        p {
+            display: flex;
+            line-height: 68px;
+        }
+
+        button {
+            margin-top: 32px;
+        }
     }
-  }
+}
+
+.classid {
+    display: flex;
+
+    b {
+        margin-top: 12px;
+        padding-right: 10px;
+        min-width: 90px;
+        font-weight: normal;
+    }
+}
+
+.active /deep/ {
+    background: #09f;
+    color: #fff;
+}
+
+span {
+    cursor: pointer;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+
+    -khtml-user-select: none;
+    /* Konqueror */
+
+    -moz-user-select: none;
+    /* Firefox */
+
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+
+    user-select: none;
+    /* Non-prefixed version, currently
+
+not supported by any browser */
+}
+
+.el-table {
+    padding: 0 15px;
 }
 </style>

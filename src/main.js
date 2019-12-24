@@ -10,7 +10,7 @@ import Element from 'element-ui'
 import './styles/element-variables.scss'
 
 import '@/styles/index.scss' // global css
-
+import axios from 'axios'
 // 根组件
 import App from './App'
 import store from './store'
@@ -40,7 +40,8 @@ import * as filters from './filters' // global filters
 // if (process.env.NODE_ENV === 'production') {
 //   mockXHR()
 // }
-
+//挂载axios
+Vue.prototype.$axios=axios 
 // 挂在Element
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
