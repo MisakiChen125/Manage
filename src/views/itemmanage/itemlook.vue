@@ -4,19 +4,32 @@
     <div class="test_title">
       <ul class="tt_nav">
         <li>
-          {{AllQuestions}}
           <h3>课程类型：</h3>
         </li>
-        <li v-for="(item,index) in nav" :key="index">{{item}}</li>
+        <li v-for="(item,index) in Subject" :key="index">{{item.subject_text}}</li>
       </ul>
       <ul class="tt_main">
         <li>
           <h3>考试类型：</h3>
-          <select name id></select>
+          <select name id>
+            <option
+              v-for="(item,index) in ExamType"
+              :key="index"
+              :value="item.exam_name"
+              :class="{active:index===0}"
+            >{{item.exam_name}}</option>
+          </select>
         </li>
         <li>
-          <h3>考试类型：</h3>
-          <select name id></select>
+          <h3>题目类型：</h3>
+          <select name id>
+            <option
+              v-for="(item,index) in QuestionsType"
+              :key="index"
+              :value="item.exam_name"
+              :class="{active:index===0}"
+            >{{item.questions_type_text}}</option>
+          </select>
         </li>
         <li>
           <el-button type="primary" icon="el-icon-search">搜索</el-button>
@@ -24,15 +37,15 @@
       </ul>
     </div>
     <div class="test_main">
-      <div class="tm_item" v-for="(item,index) in 5" :key="index">
+      <div class="tm_item" v-for="(item,index) in AllList" :key="index">
         <div class="tm_i_left">
-          <p>机器人扫描</p>
+          <p>{{item.title}}</p>
           <ul>
-            <li>代码补全</li>
-            <li>javaScript上</li>
-            <li class="last">周考一</li>
+            <li>{{item.questions_type_text}}</li>
+            <li>{{item.subject_text}}</li>
+            <li class="last">{{item.exam_name}}</li>
           </ul>
-          <span>dingshaoshan 发布</span>
+          <span>{{item.user_name}} 发布</span>
         </div>
         <span class="tm_i_right">编辑</span>
       </div>
@@ -40,38 +53,34 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   props: {},
   components: {},
   data() {
-    return {
-      nav: [
-        "All",
-        "javaScript上",
-        "javaScript下",
-        "模块化开发",
-        "移动端开发",
-        "node基础",
-        "组件化开发",
-        "渐进式开发",
-        "javaScript高级",
-        "node高级"
-      ]
-    };
+    return {};
   },
   computed: {
     ...mapState({
-      AllQuestions: state => state.questions.AllQuestions
+      ExamType: state => state.questions.ExamType,
+      Subject: state => state.questions.Subject,
+      QuestionsType: state => state.questions.QuestionsType,
+      AllList: state => state.questions.AllList
     })
   },
   methods: {
     ...mapActions({
+      examType: "questions/examType",
+      getexamType: "questions/getexamType",
+      getQuestionsType: "questions/getQuestionsType",
       acquireAllQuestions: "questions/acquireAllQuestions"
     })
   },
-  created() {
+  async created() {
     this.acquireAllQuestions();
+    this.examType();
+    this.getexamType();
+    this.getQuestionsType();
   },
   mounted() {}
 };
@@ -149,9 +158,9 @@ export default {
       padding: 1rem;
       box-sizing: border-box;
       align-items: center;
-
+      flex-wrap: wrap;
       & > li {
-        padding: 0 0.5rem;
+        padding: 0.1rem 0.3%;
         box-sizing: border-box;
         white-space: nowrap;
         font-size: 1rem;
@@ -170,7 +179,7 @@ export default {
       }
     }
     .tt_main > li {
-      padding-right: 5%;
+      padding-right: 2%;
     }
   }
 }

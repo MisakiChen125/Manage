@@ -14,10 +14,38 @@
         <p>题目主题</p>
         <textarea></textarea>
       </div>
-      <div class="test_item" v-for="(item,index) in arr" :key="index">
-        <b>{{item}}</b>
-        <!-- <input type="text" placeholder="请输入题目标题，不超过20个字" /> -->
-        <select></select>
+      <div class="test_item">
+        <b>考试类型</b>
+        <select value>
+          <option
+            v-for="(item,index) in ExamType"
+            :key="index"
+            :value="item.exam_name"
+            :class="{active:index===0}"
+          >{{item.exam_name}}</option>
+        </select>
+      </div>
+      <div class="test_item">
+        <b>课程类型</b>
+        <select value>
+          <option
+            v-for="(item,index) in Subject"
+            :key="index"
+            :value="item.subject_text"
+            :class="{active:index===0}"
+          >{{item.subject_text}}</option>
+        </select>
+      </div>
+      <div class="test_item">
+        <b>题目类型</b>
+        <select value>
+          <option
+            v-for="(item,index) in QuestionsType"
+            :key="index"
+            :value="item.questions_type_text"
+            :class="{active:index===0}"
+          >{{item.questions_type_text}}</option>
+        </select>
       </div>
       <div class="test_main">
         <p>答案信息</p>
@@ -28,21 +56,31 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   props: {},
   components: {},
   data() {
-    return {
-      arr: ["考试类型", "课程类型", "题目类型"]
-    };
+    return {};
   },
   computed: {
-  
+    ...mapState({
+      ExamType: state => state.questions.ExamType,
+      Subject: state => state.questions.Subject,
+      QuestionsType: state => state.questions.QuestionsType
+    })
   },
   methods: {
-    
+    ...mapActions({
+      examType: "questions/examType",
+      getexamType: "questions/getexamType",
+      getQuestionsType: "questions/getQuestionsType"
+    })
   },
-  created() {
+  async created() {
+    this.examType();
+    this.getexamType();
+    this.getQuestionsType();
   },
   mounted() {}
 };
@@ -97,7 +135,7 @@ export default {
       }
       textarea {
         width: 100%;
-        height: 20rem;
+        height: 16rem;
         padding: 1rem;
         box-sizing: border-box;
       }
@@ -137,6 +175,11 @@ export default {
       background: #fff;
       border-radius: 2px;
       font-size: 0.95rem;
+      option {
+        &.active {
+          font-weight: bold;
+        }
+      }
     }
   }
 }

@@ -1,56 +1,53 @@
 <template>
   <div class="classify">
+    <AddMask />
     <h3>试卷分类</h3>
     <div class="test">
       <button>+ 添加类型</button>
       <div class="table">
-        <el-table :data="tableData" style="width: 100%;">
-          <el-table-column class="table_title" prop="date" label="类型ID" style="background:#fcfcfc"></el-table-column>
-          <el-table-column class="table_title" prop="name" label="类型名称" style="background:#fcfcfc"></el-table-column>
-          <el-table-column class="table_title" prop="address" label="操作" style="background:#fcfcfc"></el-table-column>
+        <el-table :data="QuestionsType" style="width: 100%;">
+          <el-table-column
+            class="table_title"
+            prop="questions_type_id"
+            label="类型ID"
+            style="background:#fcfcfc"
+          ></el-table-column>
+          <el-table-column
+            class="table_title"
+            prop="questions_type_text"
+            label="类型名称"
+            style="background:#fcfcfc"
+          ></el-table-column>
+          <el-table-column class="table_title" prop label="操作" style="background:#fcfcfc"></el-table-column>
         </el-table>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+import AddMask from "@/components/AddMask";
 export default {
   props: {},
-  components: {},
-  data() {
-    return {
-      tableData: [
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        },
-        {
-          date: "774318-730z8m",
-          name: "简答题",
-          address: ""
-        }
-      ]
-    };
+  components: {
+    AddMask
   },
-  computed: {},
-  methods: {},
-  created() {},
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState({
+      QuestionsType: state => state.questions.QuestionsType
+    })
+  },
+  methods: {
+    ...mapActions({
+      getQuestionsType: "questions/getQuestionsType"
+    })
+  },
+  created() {
+    this.getQuestionsType();
+  },
   mounted() {}
 };
 </script>

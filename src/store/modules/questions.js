@@ -1,22 +1,47 @@
-import { addQuestions, acquireAllQuestions } from "@/api/questions"
+import { examType, acquireAllQuestions, getexamType, getQuestionsType } from "@/api/questions"
 const state = {
-    AllQuestions: []
+    AllList: [],
+    ExamType: [],
+    Subject: [],
+    QuestionsType: []
 }
-const mutaions = {
-    getacquireAllQuestions(state, actions) {
-        console.log(actions)
-        state.AllQuestions = actions
+const mutations = {
+    setAlltest(state, actions) {
+        state.AllList = actions
+    },
+    setexamType(state, actions) {
+        state.ExamType = actions
+    },
+    setsubject(state, actions) {
+        state.Subject = actions
+    },
+    setQuestionsType(state, actions) {
+        state.QuestionsType = actions
     }
 }
 const actions = {
     async acquireAllQuestions({ commit }) {
         let res = await acquireAllQuestions();
-        commit("getacquireAllQuestions", res.data)
+        commit("setAlltest", res.data)
+    }
+    ,
+    async examType({ commit }, actions) {
+        let res = await examType();
+        commit("setexamType", res.data)
+    }
+    ,
+    async getexamType({ commit }, actions) {
+        let res = await getexamType();
+        commit("setsubject", res.data)
+    },
+    async getQuestionsType({ commit }) {
+        let res = await getQuestionsType();
+        commit("setQuestionsType", res.data)
     }
 }
 export default {
+    namespaced: true,
     state,
-    mutaions,
-    actions,
-    namespaced: true
+    mutations,
+    actions
 }
