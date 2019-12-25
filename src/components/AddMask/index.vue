@@ -1,15 +1,26 @@
 <template>
-  <div class="addMask active"></div>
+  <div :class="{addMask:true, active:isMask}" @click="btn"></div>
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    isMask: {
+      type: Boolean
+    },
+    editMask: {
+      type: Function
+    }
+  },
   components: {},
   data() {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    btn() {
+      console.log(this.editMask())
+    }
+  },
   created() {},
   mounted() {}
 };

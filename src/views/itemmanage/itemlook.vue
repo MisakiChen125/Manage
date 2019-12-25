@@ -6,6 +6,7 @@
         <li>
           <h3>课程类型：</h3>
         </li>
+        <li>All</li>
         <li v-for="(item,index) in Subject" :key="index">{{item.subject_text}}</li>
       </ul>
       <ul class="tt_main">
@@ -160,10 +161,10 @@ export default {
       align-items: center;
       flex-wrap: wrap;
       & > li {
-        padding: 0.1rem 0.3%;
+        padding: 0.1rem 0.5%;
         box-sizing: border-box;
         white-space: nowrap;
-        font-size: 1rem;
+        font-size: .85rem;
         display: flex;
         align-items: center;
         h3 {

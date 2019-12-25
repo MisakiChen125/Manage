@@ -1,6 +1,6 @@
 <template>
   <div class="classify">
-    <AddMask />
+    <AddMask :isMask="isMask" :editMask="editMask" />
     <h3>试卷分类</h3>
     <div class="test">
       <button>+ 添加类型</button>
@@ -33,7 +33,9 @@ export default {
     AddMask
   },
   data() {
-    return {};
+    return {
+      isMask: false
+    };
   },
   computed: {
     ...mapState({
@@ -43,7 +45,11 @@ export default {
   methods: {
     ...mapActions({
       getQuestionsType: "questions/getQuestionsType"
-    })
+    }),
+    editMask(a) {
+      console.log(a);
+      // this.isMask = a;
+    }
   },
   created() {
     this.getQuestionsType();
