@@ -2,7 +2,7 @@
 <div class="TestClassification">
     <h2>试题分类</h2>
     <div class="classifyTest">
-        <el-button type="primary">+ 添加类型 </el-button>
+        <el-button type="primary" @click="open3">+ 添加类型 </el-button>
         <div class="tableList">
             <el-table :data="ExamTypeList" style="width: 100%" :header-cell-style="{background:'#f4f4f4',color:'#555',lineHeight:'30px',fontSize:'14px'}">
                 <el-table-column label="类型ID" width="660">
@@ -34,13 +34,42 @@ import {
 } from 'vuex'
 export default {
     computed: {
-       
+        ...mapState({
+            ExamTypeList: state => state.TestManagement.ExamTypeList
+        })
     },
     created() {
-       
+        this.getExamType()
     },
     methods: {
-       
+        ...mapActions({
+            getExamType: "TestManagement/getExamType",
+            insertQuestionsType: "TestManagement/insertQuestionsType",
+        }),
+        open3() {
+            this.$prompt("请输入类型名称", '创建新类型', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+            }).then(({
+                value
+            }) => {
+                let params = {
+                    text: value,
+                    sort: this.ExamTypeList.length + 1
+                }
+                this.insertQuestionsType(params)
+                this.$message({
+                    type: 'success',
+                    message: '添加成功'
+                });
+                this.getExamType()
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '添加失败'
+                });
+            });
+        }
     }
 }
 </script>

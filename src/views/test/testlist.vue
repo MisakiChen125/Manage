@@ -7,19 +7,19 @@
           <li>考试类型：</li>
           <el-select v-model="value" placeholder="请选择">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              v-for="(item,index) in examAllList"
+            :key="index"
+            :label="item.exam_name"
+            :value="item.exam_name"
             ></el-option>
           </el-select>
           <li>课程：</li>
-          <el-select v-model="value" placeholder="请选择">
+          <el-select v-model="value1" placeholder="请选择">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+            v-for="(item,index) in getClass"
+            :key="index"
+            :label="item.subject_text"
+            :value="item.subject_text" 
             ></el-option>
           </el-select>
           <el-button type="primary">查询</el-button>
@@ -37,9 +37,11 @@
         </div>
         <div class="main">
           <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="日期"></el-table-column>
-            <el-table-column prop="name" label="姓名"></el-table-column>            
-            <el-table-column prop="address" label="地址"></el-table-column>
+            <el-table-column prop="exam_exam_id" label="试卷信息"></el-table-column>
+            <el-table-column prop="grade_name" label="班级"></el-table-column>            
+            <el-table-column prop="user_name" label="创建人"></el-table-column>
+             <el-table-column prop="start_time" label="开始时间"></el-table-column>
+              <el-table-column prop="end_time" label="结束时间"></el-table-column>
             <el-table-column  label="操作">
                 <span style="color: #409eff">详情</span>
             </el-table-column>
@@ -50,56 +52,36 @@
   </div>
 </template>
 <script>
+import { mapState,mapActions } from 'vuex';
 export default {
   props: {},
   components: {},
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
-        }
-      ],
       value: "",
-       tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
-    };
+      value1:"",
+      grade_name:''
+    }
   },
-  computed: {},
-  methods: {},
-  created() {},
+  computed: {
+     ...mapState({
+         examAllList:state=>state.questions.examList,
+         getClass:state=>state.questions.getClass,
+         tableData:state=>state.questions.tableData
+    })
+  },
+  methods: {
+    ...mapActions({
+        examType:'questions/examType',
+        examAllType:'questions/examAllType', 
+        acquireExamList:'questions/acquireExamList'
+    })
+  },
+  created() {
+       this.examType(),
+    this.examAllType(),
+    this.acquireExamList()
+  },
   mounted() {}
 };
 </script>
