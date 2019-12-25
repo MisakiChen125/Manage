@@ -18,7 +18,7 @@ export default {
   computed: {},
   methods: {
     btn() {
-      console.log(this.editMask())
+      this.editMask(false);
     }
   },
   created() {},
@@ -36,10 +36,10 @@ export default {
   flex-direction: column;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1002;
-  transition: all 1s ease;
+  transition: all .5s ease;
   transform: scale(0, 0);
   &.active {
-    transition: all 1s ease;
+    transition: all 2s ease;
     transform: scale(100, 100);
   }
 }

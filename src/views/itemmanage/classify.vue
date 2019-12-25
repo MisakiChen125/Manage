@@ -3,7 +3,7 @@
     <AddMask :isMask="isMask" :editMask="editMask" />
     <h3>试卷分类</h3>
     <div class="test">
-      <button>+ 添加类型</button>
+      <button @click="editMask(true)">+ 添加类型</button>
       <div class="table">
         <el-table :data="QuestionsType" style="width: 100%;">
           <el-table-column
@@ -47,8 +47,7 @@ export default {
       getQuestionsType: "questions/getQuestionsType"
     }),
     editMask(a) {
-      console.log(a);
-      // this.isMask = a;
+      this.isMask = a;
     }
   },
   created() {
