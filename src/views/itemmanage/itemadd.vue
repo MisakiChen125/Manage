@@ -50,7 +50,18 @@
       <div class="test_main">
         <p>答案信息</p>
         <textarea></textarea>
-        <button>提交</button>
+        <el-button type="text" class="btn" @click="centerDialogVisible = true">提交</el-button>
+
+        <el-dialog title="?" :visible.sync="centerDialogVisible" width="30%" center >
+          <div class="content">
+            <h3>你确定要添加这道试题吗?</h3>
+            <span>真的要添加吗？</span>
+          </div>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="centerDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -61,7 +72,9 @@ export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      centerDialogVisible: false
+    };
   },
   computed: {
     ...mapState({
@@ -139,7 +152,7 @@ export default {
         padding: 1rem;
         box-sizing: border-box;
       }
-      button {
+      .btn {
         width: 4rem;
         padding: 0.5rem 0;
         display: flex;
@@ -180,6 +193,20 @@ export default {
           font-weight: bold;
         }
       }
+    }
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h3,
+    span {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

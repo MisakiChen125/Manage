@@ -6,39 +6,49 @@
         <li>
           <h3>课程类型：</h3>
         </li>
-        <li>All</li>
-        <li v-for="(item,index) in Subject" :key="index">{{item.subject_text}}</li>
+        <li :class="{active:indArr.includes('All')}" @click="all">All</li>
+        <li
+          v-for="(item,index) in Subject"
+          :key="index"
+          @click="btn(item.subject_text)"
+          :class="{active:indArr.includes(item.subject_text)||indArr.includes('All')}"
+        >{{item.subject_text}}</li>
       </ul>
       <ul class="tt_main">
         <li>
           <h3>考试类型：</h3>
-          <select name id>
-            <option
-              v-for="(item,index) in ExamType"
-              :key="index"
+          <el-select v-model="testValue" placeholder="请选择">
+            <el-option
+              v-for="item in ExamType"
+              :key="item.exam_name"
+              :label="item.label"
               :value="item.exam_name"
-              :class="{active:index===0}"
-            >{{item.exam_name}}</option>
-          </select>
+            ></el-option>
+          </el-select>
         </li>
         <li>
           <h3>题目类型：</h3>
-          <select name id>
-            <option
-              v-for="(item,index) in QuestionsType"
-              :key="index"
-              :value="item.exam_name"
-              :class="{active:index===0}"
-            >{{item.questions_type_text}}</option>
-          </select>
+          <el-select v-model="questionsValue" placeholder="请选择">
+            <el-option
+              v-for="item in QuestionsType"
+              :key="item.questions_type_text"
+              :label="item.label"
+              :value="item.questions_type_text"
+            ></el-option>
+          </el-select>
         </li>
         <li>
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="setSecondList(testValue+','+questionsValue+','+indArr[0]&&index[0]!=='#'&&indeArr[0])"
+          >搜索</el-button>
         </li>
       </ul>
     </div>
     <div class="test_main">
-      <div class="tm_item" v-for="(item,index) in AllList" :key="index">
+      <!-- {{SecondList}} -->
+      <!-- <div class="tm_item" v-for="(item,index) in SecondList" :key="index">
         <div class="tm_i_left">
           <p>{{item.title}}</p>
           <ul>
@@ -49,33 +59,52 @@
           <span>{{item.user_name}} 发布</span>
         </div>
         <span class="tm_i_right">编辑</span>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      testValue: "",
+      questionsValue: "",
+      indArr: ["#"]
+    };
   },
   computed: {
     ...mapState({
       ExamType: state => state.questions.ExamType,
       Subject: state => state.questions.Subject,
       QuestionsType: state => state.questions.QuestionsType,
-      AllList: state => state.questions.AllList
+      AllList: state => state.questions.AllList,
+      SecondList: state => state.questions.SecondList
     })
   },
   methods: {
+    ...mapMutations({ setSecondList: "questions/setSecondList" }),
     ...mapActions({
       examType: "questions/examType",
       getexamType: "questions/getexamType",
       getQuestionsType: "questions/getQuestionsType",
       acquireAllQuestions: "questions/acquireAllQuestions"
-    })
+    }),
+    btn(ind) {
+      this.indArr.length === 0 && this.indArr.push(ind);
+      if (this.indArr.length !== 0) {
+        this.indArr[0] === ind
+          ? this.indArr.splice(0, 1)
+          : this.indArr.splice(0, 1, ind);
+      }
+    },
+    all() {
+      this.indArr.includes("All")
+        ? this.indArr.splice(0, 1)
+        : this.indArr.splice(0, 1, "All");
+    }
   },
   async created() {
     this.acquireAllQuestions();
@@ -153,6 +182,15 @@ export default {
         font-size: 0.85rem;
       }
     }
+    .tt_nav > li {
+      padding: 0.2rem;
+      margin: 0 0.1rem;
+      box-sizing: border-box;
+    }
+    .tt_nav > li.active {
+      background: #00f;
+      color: #fff;
+    }
     .tt_nav,
     .tt_main {
       display: flex;
@@ -164,7 +202,7 @@ export default {
         padding: 0.1rem 0.5%;
         box-sizing: border-box;
         white-space: nowrap;
-        font-size: .85rem;
+        font-size: 0.85rem;
         display: flex;
         align-items: center;
         h3 {

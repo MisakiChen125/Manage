@@ -1,9 +1,15 @@
 <template>
   <div class="classify">
-    <AddMask :isMask="isMask" :editMask="editMask" />
     <h3>试卷分类</h3>
     <div class="test">
-      <button @click="editMask(true)">+ 添加类型</button>
+      <el-button type="text" class="btn" @click="centerDialogVisible = true">+ 添加类型</el-button>
+      <el-dialog title="创建新类型" :visible.sync="centerDialogVisible" width="30%" center>
+        <input type="text" class="content" placeholder="请输入类型名称" />
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          <el-button @click="centerDialogVisible = false">取 消</el-button>
+        </span>
+      </el-dialog>
       <div class="table">
         <el-table :data="QuestionsType" style="width: 100%;">
           <el-table-column
@@ -26,15 +32,12 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import AddMask from "@/components/AddMask";
 export default {
   props: {},
-  components: {
-    AddMask
-  },
+  components: {},
   data() {
     return {
-      isMask: false
+      centerDialogVisible: false
     };
   },
   computed: {
@@ -45,10 +48,7 @@ export default {
   methods: {
     ...mapActions({
       getQuestionsType: "questions/getQuestionsType"
-    }),
-    editMask(a) {
-      this.isMask = a;
-    }
+    })
   },
   created() {
     this.getQuestionsType();
@@ -82,7 +82,7 @@ export default {
     border-radius: 10px;
     padding: 1rem;
     box-sizing: border-box;
-    button {
+    .btn {
       width: 15%;
       padding: 0.5rem 0;
       box-sizing: border-box;
@@ -107,6 +107,16 @@ export default {
       flex-direction: column;
       margin-top: 1rem;
     }
+  }
+  .content {
+    width: 100%;
+    height: 1rem;
+    display: block;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    padding: 1rem 0;
+    box-sizing: border-box;
   }
 }
 </style>
