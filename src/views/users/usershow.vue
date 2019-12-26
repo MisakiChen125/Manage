@@ -15,26 +15,39 @@
       <h3 class="m_title">{{arr[ind].text}}</h3>
       <!-- {{showArr}} -->
       <div class="table">
-        <el-table :data="showArr" style="width: 100%">
+        <el-table
+          :data="showArr.length>pagesize?showArr.slice((currentPage-1)*pagesize,currentPage*pagesize):showArr"
+          style="width: 100%"
+        >
           <el-table-column :prop="backobj.date[0]" :label="backobj.date[1]" v-if="backobj.date"></el-table-column>
-          <el-table-column :prop="backobj.name[0]" :label="backobj.name[1]" v-if="backobj.name"></el-table-column>
-          <el-table-column :prop="backobj.id[0]" :label="backobj.id[1]" v-if="backobj.id"></el-table-column>
+          <el-table-column
+            :prop="backobj.name[0]"
+            :label="backobj.name[1]"
+            width="500"
+            v-if="backobj.name"
+          ></el-table-column>
+          <el-table-column
+            :prop="backobj.id[0]"
+            :label="backobj.id[1]"
+            width="180"
+            v-if="backobj.id"
+          ></el-table-column>
           <el-table-column
             :prop="backobj.method[0]"
             :label="backobj.method[1]"
+            width="180"
             v-if="backobj.method"
           ></el-table-column>
         </el-table>
-        <!-- <div class="block">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-size="pagesize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="data.length"
-          ></el-pagination> -->
-        </div>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 20, 40]"
+          :page-size="pagesize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="showArr.length"
+        ></el-pagination>
       </div>
     </div>
   </div>
@@ -46,11 +59,8 @@ export default {
   components: {},
   data() {
     return {
-      currentPage: 1,
-      pagesize: 10,
-      // currentPage2: 5,
-      // currentPage3: 5,
-      // currentPage4: 4,
+      currentPage: 1, //初始页
+      pagesize: 10, //    每页的数据
       ind: 0,
       arr: [
         {
@@ -70,58 +80,6 @@ export default {
         },
         {
           text: "身份和视图权限关系"
-        }
-      ],
-      tableData: [
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
-        },
-        {
-          date: "gwx",
-          name: "1235678oi6421267ioiqwhjtwky3rmnewhjy3rhh",
-          address: "出题者"
         }
       ]
     };
@@ -211,13 +169,13 @@ export default {
       acquireView: "jurisdiction/acquireView",
       showInfo: "jurisdiction/showInfo"
     }),
-    handleSizeChange(val) {
-      this.pagesize = val;
-      console.log(`每页 ${val} 条`);
+    handleSizeChange: function(size) {
+      this.pagesize = size;
+      // console.log(this.pagesize); //每页下拉显示数据
     },
-    handleCurrentChange(val) {
-      this.currentPage = val;
-      console.log(`当前页: ${val}`);
+    handleCurrentChange: function(currentPage) {
+      this.currentPage = currentPage;
+      // console.log(this.currentPage); //点击第几页
     }
   },
   async created() {

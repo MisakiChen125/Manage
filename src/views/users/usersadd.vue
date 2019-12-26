@@ -2,133 +2,171 @@
   <div class="usersadd">
     <h3>添加用户</h3>
     <div class="test">
-      <div class="test_item" v-for="(item,index) in arr" :key="index">
-        <div class="ti_title" v-if="index===0">
-          <p :class="{active:i===ind}" v-for="(v,i) in item.title" :key="i" @click="ind=i">{{v}}</p>
-        </div>
-        <div class="ti_title" v-else>
-          <p :class="{active:i===0}" v-for="(v,i) in item.title" :key="i">{{v}}</p>
+      <div class="test_item">
+        <div class="ti_title">
+          <p :class="{active:ind===0}" @click="ind=0">添加用户</p>
+          <p :class="{active:ind===1}" @click="ind=1">更新用户</p>
         </div>
         <div class="ti_form">
-          <p v-if="item.form.filter(a=>{return a.type==='input'}).length">
-            <input
-              type="text"
-              v-for="(v,i) in item.form.filter(a=>{return a.type==='input'})"
-              :key="i"
-              :placeholder="v.text"
-            />
+          <p v-if="ind===1">
+            <select>
+              <option v-show="!UserList.length">请选择身份id</option>
+              <option v-for="(item,index) in UserList" :key="index">{{item.user_name}}</option>
+            </select>
           </p>
-          <p v-if="item.form.filter(a=>{return a.type==='select'}).length">
-            <select
-              name
-              id
-              v-for="(v,i) in item.form.filter(a=>{return a.type==='select'})"
-              :key="i"
-            >
-              <option :value="v.text">{{v.text}}</option>
+          <p>
+            <input type="text" placeholder="请输入用户" />
+          </p>
+          <p>
+            <input type="text" placeholder="请输入密码" />
+          </p>
+          <p>
+            <select>
+              <option v-show="!Identity.length">请选择身份id</option>
+              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
             </select>
           </p>
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button>重置</button>
+          <button >重置</button>
+        </div>
+      </div>
+      <div class="test_item">
+        <div class="ti_title">
+          <p class="active">添加身份</p>
+        </div>
+        <div class="ti_form">
+          <p>
+            <input type="text" placeholder="请输入身份名称" />
+          </p>
+        </div>
+        <div class="ti_button">
+          <button>确定</button>
+          <button >重置</button>
+        </div>
+      </div>
+      <div class="test_item">
+        <div class="ti_title">
+          <p class="active">添加api接口权限</p>
+        </div>
+        <div class="ti_form">
+          <p>
+            <input type="text" placeholder="请输入api接口权限名称" />
+          </p>
+          <p>
+            <input type="text" placeholder="请输入api接口权限url" />
+          </p>
+          <p>
+            <input type="text" placeholder="请输入api接口权限方法" />
+          </p>
+        </div>
+        <div class="ti_button">
+          <button>确定</button>
+          <button >重置</button>
+        </div>
+      </div>
+      <div class="test_item">
+        <div class="ti_title">
+          <p class="active">添加视图接口权限</p>
+        </div>
+        <div class="ti_form">
+          <p>
+            <select>
+              <option v-show="!View.length">请选择已有视图</option>
+              <option v-for="(item,index) in View" :key="index">{{item.view_authority_text}}</option>
+            </select>
+          </p>
+        </div>
+        <div class="ti_button">
+          <button>确定</button>
+          <button >重置</button>
+        </div>
+      </div>
+      <div class="test_item">
+        <div class="ti_title">
+          <p class="active">给身份设置api接口权限</p>
+        </div>
+        <div class="ti_form">
+          <p>
+            <select>
+              <option v-show="!Identity.length">请选择身份id</option>
+              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
+            </select>
+          </p>
+          <p>
+            <select>
+              <option v-show="!Authority.length">请选择api接口权限id</option>
+              <option v-for="(item,index) in Authority" :key="index">{{item.api_authority_text}}</option>
+            </select>
+          </p>
+        </div>
+        <div class="ti_button">
+          <button>确定</button>
+          <button >重置</button>
+        </div>
+      </div>
+      <div class="test_item">
+        <div class="ti_title">
+          <p class="active">给身份设置视图权限</p>
+        </div>
+        <div class="ti_form">
+          <p>
+            <select>
+              <option v-show="!Identity.length">请选择身份id</option>
+              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
+            </select>
+          </p>
+          <p>
+            <select>
+              <option v-show="!Info.length">请选择视图接口权限id</option>
+              <option v-for="(item,index) in Info" :key="index">{{item.view_authority_text}}</option>
+            </select>
+          </p>
+        </div>
+        <div class="ti_button">
+          <button>确定</button>
+          <button >重置</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   props: {},
   components: {},
   data() {
     return {
-      ind: 0,
-      arr: [
-        {
-          title: ["添加用户", "更新用户"],
-          form: [
-            {
-              type: "input",
-              text: "请输入用户名"
-            },
-            {
-              type: "input",
-              text: "请输入密码"
-            },
-            {
-              type: "select",
-              text: "请选择身份id"
-            }
-          ]
-        },
-        {
-          title: ["添加身份"],
-          form: [
-            {
-              type: "input",
-              text: "请输入身份名称"
-            }
-          ]
-        },
-        {
-          title: ["添加api接口权限"],
-          form: [
-            {
-              type: "input",
-              text: "请输入api接口权限名称"
-            },
-            {
-              type: "input",
-              text: "请输入api接口权限url"
-            },
-            {
-              type: "input",
-              text: "请输入api接口权限方法"
-            }
-          ]
-        },
-        {
-          title: ["添加视图接口权限"],
-          form: [
-            {
-              type: "select",
-              text: "请选择已有视图"
-            }
-          ]
-        },
-        {
-          title: ["给身份设置api接口权限"],
-          form: [
-            {
-              type: "select",
-              text: "请选择身份id"
-            },
-            {
-              type: "select",
-              text: "请选择api接口"
-            }
-          ]
-        },
-        {
-          title: ["给身份设置视图权限"],
-          form: [
-            {
-              type: "select",
-              text: "请选择身份id"
-            },
-            {
-              type: "select",
-              text: "请选择视图权限"
-            }
-          ]
-        }
-      ]
+      ind: 0
     };
   },
-  computed: {},
-  methods: {},
-  created() {},
+  computed: {
+    ...mapState({
+      UserList: state => state.jurisdiction.UserList,
+      Identity: state => state.jurisdiction.Identity,
+      Authority: state => state.jurisdiction.Authority,
+      View: state => state.jurisdiction.View,
+      Info: state => state.jurisdiction.Info
+    })
+  },
+  methods: {
+    ...mapActions({
+      showIdentity: "jurisdiction/showIdentity",
+      showUserList: "jurisdiction/showUserList",
+      apiAuthority: "jurisdiction/apiAuthority",
+      acquireView: "jurisdiction/acquireView",
+      showInfo: "jurisdiction/showInfo"
+    })
+  },
+  async created() {
+    this.showIdentity();
+    this.showUserList();
+    this.acquireView();
+    this.apiAuthority();
+    this.showInfo();
+  },
   mounted() {}
 };
 </script>
@@ -193,7 +231,7 @@ export default {
         p {
           width: 100%;
           select {
-            width: calc(100% / 3);
+            width: calc(100% / 2);
             margin: 0.5rem 0;
             border: 1px solid #ccc;
             outline: none;
@@ -201,6 +239,10 @@ export default {
             box-sizing: border-box;
             font-size: 0.75rem;
             display: block;
+            option {
+              width: 100%;
+              overflow: hidden;
+            }
           }
           input {
             width: 100%;

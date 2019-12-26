@@ -12,7 +12,7 @@
       </div>
       <div class="test_main">
         <p>题目主题</p>
-        <textarea></textarea>
+        <markdown-editor v-model="content" height="300px" />
       </div>
       <div class="test_item">
         <b>考试类型</b>
@@ -49,10 +49,10 @@
       </div>
       <div class="test_main">
         <p>答案信息</p>
-        <textarea></textarea>
+        <markdown-editor v-model="content" height="300px" />
         <el-button type="text" class="btn" @click="centerDialogVisible = true">提交</el-button>
 
-        <el-dialog title="?" :visible.sync="centerDialogVisible" width="30%" center >
+        <el-dialog title="?" :visible.sync="centerDialogVisible" width="30%" center>
           <div class="content">
             <h3>你确定要添加这道试题吗?</h3>
             <span>真的要添加吗？</span>
@@ -68,9 +68,10 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+import MarkdownEditor from "@/components/MarkdownEditor";
 export default {
   props: {},
-  components: {},
+  components: { MarkdownEditor },
   data() {
     return {
       centerDialogVisible: false
