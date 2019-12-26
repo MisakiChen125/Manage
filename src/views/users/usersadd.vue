@@ -3,7 +3,10 @@
     <h3>添加用户</h3>
     <div class="test">
       <div class="test_item" v-for="(item,index) in arr" :key="index">
-        <div class="ti_title">
+        <div class="ti_title" v-if="index===0">
+          <p :class="{active:i===ind}" v-for="(v,i) in item.title" :key="i" @click="ind=i">{{v}}</p>
+        </div>
+        <div class="ti_title" v-else>
           <p :class="{active:i===0}" v-for="(v,i) in item.title" :key="i">{{v}}</p>
         </div>
         <div class="ti_form">
@@ -40,6 +43,7 @@ export default {
   components: {},
   data() {
     return {
+      ind: 0,
       arr: [
         {
           title: ["添加用户", "更新用户"],

@@ -41,13 +41,13 @@
           <el-button
             type="primary"
             icon="el-icon-search"
-            @click="setSecondList(testValue+','+questionsValue+','+indArr[0]&&index[0]!=='#'&&indeArr[0])"
+            @click="setSecondList({testValue,questionsValue,indArr})"
           >搜索</el-button>
         </li>
       </ul>
     </div>
     <div class="test_main">
-      <!-- {{SecondList}} -->
+      {{SecondList.length?SecondList:AllList}}
       <!-- <div class="tm_item" v-for="(item,index) in SecondList" :key="index">
         <div class="tm_i_left">
           <p>{{item.title}}</p>
@@ -110,7 +110,6 @@ export default {
     this.acquireAllQuestions();
     this.examType();
     this.getexamType();
-    this.getQuestionsType();
   },
   mounted() {}
 };
@@ -183,7 +182,6 @@ export default {
       }
     }
     .tt_nav > li {
-      padding: 0.2rem;
       margin: 0 0.1rem;
       box-sizing: border-box;
     }
@@ -199,7 +197,7 @@ export default {
       align-items: center;
       flex-wrap: wrap;
       & > li {
-        padding: 0.1rem 0.5%;
+        padding: 0.1rem 0.2rem;
         box-sizing: border-box;
         white-space: nowrap;
         font-size: 0.85rem;

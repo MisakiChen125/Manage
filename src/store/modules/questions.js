@@ -11,7 +11,18 @@ const mutations = {
         state.AllList = actions
     },
     setSecondList(state, actions) {
-        console.log({...actions})
+        let { testValue, questionsValue, indArr } = actions;
+        if (testValue.length || questionsValue.length || indArr.length) {
+            // if (testValue.length) {
+            //     state.AllList.filter(item => item.exam_name === testValue);
+            // } else if (questionsValue.length) {
+            //     state.SecondList.filter(item => item.questions_type_text === questionsValue)
+            // } else if (indArr.length) {
+            //     state.SecondList.filter(item => item.subject_text === indArr[0])
+            // };
+        } else {
+            state.SecondList = state.AllList
+        }
     },
     setexamType(state, actions) {
         state.ExamType = actions
