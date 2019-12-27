@@ -12,20 +12,17 @@ export function acquireNo() {
 }
 
 // 删除班级接口
-export function deleteClass(grade_id) {
-    return request({
-        url:'/manger/grade/new',
-        method:'delete',
-        params:{grade_id}
-    })
-}
+export function deleteClass(data) {
+    let {grade_id} = data
+    return request.delete('/manger/grade/update', { data: {grade_id} })
+ }
 
 // 更新班级信息接口
-export function updateClass(query) {
+export function updateClass(data) {
     return request({
         url:'/manger/grade/update',
         method:'put',
-        params:query
+        data
     })
 }
 
@@ -41,12 +38,9 @@ export function addClass(data) {
 
 
 // 删除教室接口
-export function deleteClassRoom(room_id) {
-    return request({
-        url:'/manger/room/delete',
-        method:'delete',
-        params:{room_id}
-    })
+export function deleteClassRoom(data) {
+    let {room_id} =data
+    return request.delete('/marnger/room/delete',{data:room_id})
 }
 
 

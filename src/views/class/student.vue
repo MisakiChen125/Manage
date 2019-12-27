@@ -5,18 +5,16 @@ import { mapState, mapActions } from 'vuex';
     <div class="titlebar">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item>
-          <el-input v-model="formInline.user" placeholder="输入学生姓名"></el-input>
+          <el-input v-model="roleForm.name" placeholder="输入学生姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="formInline.region" placeholder="请选择教室号">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+          <el-select v-model="roleForm.room_id" placeholder="请选择教室号">
+            <el-option v-for="(item,index) in yiList" :key="index" :label="item.room_text" :value="item.room_id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="formInline.region" placeholder="班级名">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+          <el-select v-model="roleForm.grade_id" placeholder="班级名">
+            <el-option v-for="(item,index) in yiList" :key="index" :label="item.grade_name" :value="item.grade_id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -28,54 +26,50 @@ import { mapState, mapActions } from 'vuex';
       </el-form>
     </div>
     <div class="student_form">
-      <el-table :data="studentMsg" style="width: 100%" :row-class-name="tableRowClassName">
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="card" label="学号" width="180"></el-table-column>
-        <el-table-column prop="class" label="班级"></el-table-column>
-        <el-table-column prop="room" label="教室"></el-table-column>
-        <el-table-column label="密码">{{pwd}}</el-table-column>
+      <el-table :data="yiList.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="width: 100%" :row-class-name="tableRowClassName">
+        <el-table-column prop="student_name" label="姓名" width="180"></el-table-column>
+        <el-table-column prop="student_id" label="学号" width="180"></el-table-column>
+        <el-table-column prop="grade_name" label="班级"></el-table-column>
+        <el-table-column prop="room_text" label="教室"></el-table-column>
+        <el-table-column prop="student_pwd" label="密码"></el-table-column>
         <el-table-column  label="操作">
-            <span>删除</span>
+            <span >删除</span>
         </el-table-column>
       </el-table>
     </div>
     <div class="block">
-        <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="1000">
-            </el-pagination>
+        
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-               
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
-                layout=" sizes, jumper"
-                :total="400">
+               :current-page="currentPage"
+                :page-sizes="[5,10,20,50,100]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="totle">
              </el-pagination>
       </div>
   </div>
 </template>
 <script>
 import {mapState,mapActions} from 'vuex'
+import variables from '@/styles/variables.scss';
 export default {
   data() {
     return {
-      formInline: {
-        user: "",
-        region: ""
+      roleForm: {
+        name:"",
+        grade_id:"",
+        room_id:""
       },
-      pwd:"Qaa123!",
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      currentPage:1,
+      pageSize:5,
+      totle:270
     };
   },
   computed: {
     ...mapState({
-      studentMsg:state=>state.studentLogin.studentMsg
+     yiList:state=>state.studentClass.yiList
     })
   },
   methods: {
@@ -91,20 +85,20 @@ export default {
         return '';
       },
       handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.pageSize=val
+      this.currentPage=1
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+     
+      this.currentPage=val
+      console.log(val)
     },
     ...mapActions({
-      
-    }),
-    ...mapActions({
-      getStudentMsg:"studentLogin/acquireStudent"
+      YetStudent:"studentClass/YetStudent"
     })
   },
   created() {
-    this.getStudentMsg()
+    this.YetStudent()
   },
 };
 </script>
