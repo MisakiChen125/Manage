@@ -29,7 +29,7 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
       <div class="test_item">
@@ -43,7 +43,7 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
       <div class="test_item">
@@ -63,7 +63,7 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
       <div class="test_item">
@@ -80,7 +80,7 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
       <div class="test_item">
@@ -103,7 +103,7 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
       <div class="test_item">
@@ -126,12 +126,13 @@
         </div>
         <div class="ti_button">
           <button>确定</button>
-          <button >重置</button>
+          <button>重置</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
@@ -255,7 +256,6 @@ export default {
           }
         }
       }
-
       .ti_button {
         width: 100%;
         display: flex;

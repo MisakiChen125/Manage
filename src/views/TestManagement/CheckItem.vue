@@ -68,23 +68,100 @@ import {
 export default {
     data() {
         return {
-            // cur: 0,
-            // Evalue: "", //考试类型
-            // Qvalue: "", //题目类型
-            // allShow: false, //全选
-            // subject_id: "", //课程id
-            // EID: "",
-            // QID: ""
+            cur: 0,
+            Evalue: "", //考试类型
+            Qvalue: "", //题目类型
+            allShow: false, //全选
+            subject_id: "", //课程id
+            EID: "",
+            QID: ""
         };
     },
     computed: {
-       
+        ...mapState({
+            AllTextList: state => state.TestManagement.AllTextList,
+            ClassList: state => state.TestManagement.ClassList,
+            ExamTypeList: state => state.TestManagement.ExamTypeList,
+            ExamList: state => state.TestManagement.ExamList
+        })
     },
     async created() {
-     
+        this.getClassList();
+        this.getAllText();
+        this.getExamList();
+        this.getExamType();
     },
     methods: {
-       
+        ...mapActions({
+            getAllText: "TestManagement/getAllText",
+            getClassList: "TestManagement/getClassList",
+            getExamList: "TestManagement/getExamList",
+            getExamType: "TestManagement/getExamType",
+            searchQuestion: "TestManagement/searchQuestion"
+        }),
+        handleEdit(index, row) {
+            console.log(index, row);
+        },
+        //单选
+        changecur(item) {
+            this.ClassList.forEach((it, index) => {
+                if (it == item) {
+                    if (this.allShow) {
+                        item.show = true;
+                        this.allShow = false;
+                    } else {
+                        item.show = !item.show;
+                    }
+                    this.subject_id = item.subject_id;
+                } else {
+                    it.show = false;
+                }
+            });
+        },
+        //全选
+        clickAll() {
+            this.allShow = !this.allShow;
+            this.ClassList.forEach(item => {
+                item.show = this.allShow;
+            });
+        },
+        //选择考试类型
+        examType(item) {
+            this.EID = item.exam_id;
+            this.Evalue = item.exam_name;
+        },
+        //选择题目类型
+        QuestionType(item) {
+            this.QID = item.questions_type_id;
+            this.Qvalue = item.questions_type_text;
+        },
+        search() {
+            let params = {
+                questions_type_id: this.QID,
+                subject_id: this.subject_id,
+                exam_id: this.EID
+            };
+            if (
+                Object.values(params).some(item => {
+                    return item != "";
+                })
+            ) {
+                this.searchQuestion(params);
+            }
+        },
+        detail(row) {
+            this.$router.push({
+                path: "/TestManagement/Detail",
+                query: row
+            });
+        },
+        handleEdit(a, b) {
+            console.log(a, b);
+            this.$router.push({
+                path: "/TestManagement/EditItem",
+                query: b
+            });
+        }
     }
 };
 </script>

@@ -1,57 +1,54 @@
-import { examType, acquireAllQuestions, getexamType, getQuestionsType } from "@/api/questions"
+import { examType, examAllType } from '@/api/questions'
+import { acquireExamList, creExam } from '@/api/examination'
 const state = {
-    AllList: [],
-    ExamType: [],
-    Subject: [],
-    QuestionsType: [],
-    SecondList: []
+    examList: [],
+    getClass: [],
+    //  试卷列表的信息
+    tableData: [],
+    //接收传递的参数
+    data: ""
 }
 const mutations = {
-    setAlltest(state, actions) {
-        state.AllList = actions
+    // 考试类型
+    getExamList(state, payload) {
+        state.examList = payload.data
     },
-    setSecondList(state, actions) {
-        let { testValue, questionsValue, indArr } = actions;
-        if (testValue.length || questionsValue.length || indArr.length) {
-            // if (testValue.length) {
-            //     state.AllList.filter(item => item.exam_name === testValue);
-            // } else if (questionsValue.length) {
-            //     state.SecondList.filter(item => item.questions_type_text === questionsValue)
-            // } else if (indArr.length) {
-            //     state.SecondList.filter(item => item.subject_text === indArr[0])
-            // };
-        } else {
-            state.SecondList = state.AllList
-        }
+    // 获取所有的课程
+    getClassList(state, payload) {
+        state.getClass = payload.data
     },
-    setexamType(state, actions) {
-        state.ExamType = actions
+    getAcquire(state, payload) {
+        state.tableData = payload.exam
     },
-    setsubject(state, actions) {
-        state.Subject = actions
-    },
-    setQuestionsType(state, actions) {
-        state.QuestionsType = actions
+    updateExam(state, payload) {
+        state.data = payload
+        //console.log(state.data,".....data")
     }
 }
+
 const actions = {
-    async acquireAllQuestions({ commit }) {
-        let res = await acquireAllQuestions();
-        commit("setAlltest", res.data)
-    },
-    async examType({ commit }, actions) {
+    // 考试类型
+    async  examType({ commit }) {
         let res = await examType();
-        commit("setexamType", res.data)
+        commit('getExamList', res)
+
     },
-    async getexamType({ commit }, actions) {
-        let res = await getexamType();
-        commit("setsubject", res.data)
+    // 获取所有的课程
+    async  examAllType({ commit }) {
+        let res = await examAllType();
+        commit('getClassList', res)
     },
-    async getQuestionsType({ commit }) {
-        let res = await getQuestionsType();
-        commit("setQuestionsType", res.data)
+    async  acquireExamList({ commit }) {
+        let res = await acquireExamList();
+        commit('getAcquire', res)
+        console.log(res.exam);
+    },
+    async creExam({ commit }, payload) {
+        let res = await creExam(payload)
+        commit("updateExam", res.data)
     }
 }
+
 export default {
     namespaced: true,
     state,

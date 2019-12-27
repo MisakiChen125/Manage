@@ -4,41 +4,43 @@
     <section class="test-sec">
       <div class="test-name">
         <p>试卷名称:</p>
-        <el-input placeholder="请输入内容"></el-input>
+        <el-input placeholder="请输入内容" v-model="title"></el-input>
       </div>
       <!-- 选择考试的类型 -->
       <div class="test-name">
         <p>选择考试类型:</p>
-        <el-select v-model="value">
+        <el-select v-model="exam_id">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="(item,index) in examAllList"
+            :key="index"
+            :label="item.exam_name"
+            :value="item.exam_name"
           ></el-option>
         </el-select>
       </div>
+
       <!-- 选择课程 -->
-      <div class="test-name">
+      <div class="testBam">
         <p>选择课程:</p>
-        <el-select v-model="value">
+        <el-select v-model="subject_id">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="(item,index) in getClass"
+            :key="index"
+            :label="item.subject_text"
+            :value="item.subject_text" 
           ></el-option>
         </el-select>
       </div>
+
       <!-- 试卷的题量 -->
       <div class="test-name">
         <p>设置题量:</p>
         <el-input-number
-          v-model="num"
+          v-model="number"
           controls-position="right"
           @change="handleChange"
           :min="1"
-          :max="200"
+          :max="10"
         ></el-input-number>
       </div>
       <!-- 考试的时间 -->
@@ -46,57 +48,37 @@
         <p>考试时间:</p>
         <div class="block">
           <el-date-picker
-            v-model="value2"
+            v-model="start_time"
             type="datetime"
             placeholder="选择开始日期时间"
             align="right"
+            value-format="timestamp"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </div>   
          <div class="block">
           <el-date-picker
-            v-model="value2"
+            v-model="end_time"
             type="datetime"
             placeholder="选择结束日期时间"
             align="right"
+            value-format="timestamp"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </div>     
       </div>
       <!-- 按钮 -->
-       <el-button type="primary">创建试卷</el-button>
+       <el-button type="primary" @click="tabCreat">创建试卷</el-button>
     </section>
   </div>
 </template>
 <script>
+import { mapState,mapActions } from 'vuex';
 export default {
   props: {},
   components: {},
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "周考一"
-        },
-        {
-          value: "选项2",
-          label: "周考二"
-        },
-        {
-          value: "选项3",
-          label: "周考三"
-        },
-        {
-          value: "选项4",
-          label: "月考A"
-        },
-        {
-          value: "选项5",
-          label: "月考B"
-        }
-      ],
-      value: "",
       num: 1,
        pickerOptions: {
           shortcuts: [{
@@ -120,17 +102,48 @@ export default {
             }
           }]
         },
-        value1: '',
-        value2: '',
-        value3: ''
+        title:"",//试卷名称
+        subject_id:"",//学科
+        exam_id:"",//试卷类型
+        number:3,//题量
+        start_time:"",//开始时间
+        end_time:""//结束时间
       };
     
   },
-  computed: {},
-  methods: {
-    handleChange(value) {}
+  computed: {
+    ...mapState({
+         examAllList:state=>state.questions.examList,
+         getClass:state=>state.questions.getClass,
+    })
   },
-  created() {},
+  methods: {
+    handleChange(value) {},
+    ...mapActions({
+        examType:'questions/examType',
+        examAllType:'questions/examAllType', 
+        creExam:"questions/creExam"
+    }),
+    tabCreat(){
+      let data={
+        title:this.title,
+        subject_id:this.subject_id,
+        exam_id:this.exam_id,
+        number:this.number,
+        start_time:this.start_time,
+        end_time:this.end_time
+      }
+//      console.log(data,"....vue")
+      this.creExam(data)
+      if(this.title!=""&&this.subject_id!=""&&this.exam_id!=""&&this.number!=""&&this.start_time!=""&&this.end_time!=""){
+      this.$router.push("testCreate")
+      }
+    }
+  },
+  created() {
+    this.examType(),
+    this.examAllType()
+  },
   mounted() {}
 };
 </script>
@@ -155,6 +168,18 @@ export default {
   background: #ffffff;
   margin-top: 5px;
   border-radius: 13px 0;
+}
+.testBam{
+   width: 100%;
+  p {
+    margin-top: 20px;
+  }
+  .el-input {
+    margin-top: 10px;
+    border-radius: none;
+    width: 500px;
+    height: 45px;
+  }
 }
 .test-name {
   width: 100%;

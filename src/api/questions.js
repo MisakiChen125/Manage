@@ -43,7 +43,7 @@ export function examType(groupid) {
 
 
 // 获取所有的课程
-export function getexamType() {
+export function examAllType() {
     return request({
         url:'/exam/subject',
         method:'get',
@@ -80,7 +80,7 @@ export function getQuestionsType() {
 
 
 // 按条件获取试题
-export function QuestionsType() {
+export function getQuestionsList() {
     return request({
         url:'/exam/questions/condition',
         method:'get',

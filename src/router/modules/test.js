@@ -30,6 +30,11 @@ const testRoutes = {
           title:'试卷列表'
         }
         
+      },
+      //创建试卷
+      {
+        path:"testCreate",
+        component:()=>import("@/views/test/testCreate")
       }
     ]
 }
