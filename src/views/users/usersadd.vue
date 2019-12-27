@@ -3,134 +3,152 @@
     <h3>添加用户</h3>
     <div class="test">
       <div class="test_item">
-        <div class="ti_title">
-          <p :class="{active:ind===0}" @click="ind=0">添加用户</p>
-          <p :class="{active:ind===1}" @click="ind=1">更新用户</p>
-        </div>
-        <div class="ti_form">
-          <p v-if="ind===1">
-            <select>
-              <option v-show="!UserList.length">请选择身份id</option>
-              <option v-for="(item,index) in UserList" :key="index">{{item.user_name}}</option>
-            </select>
-          </p>
-          <p>
-            <input type="text" placeholder="请输入用户" />
-          </p>
-          <p>
-            <input type="text" placeholder="请输入密码" />
-          </p>
-          <p>
-            <select>
-              <option v-show="!Identity.length">请选择身份id</option>
-              <option
-                v-for="(item,index) in Identity"
-                :key="index"
-              >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
-            </select>
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p :class="{active:ind===0}" @click="ind=0">添加用户</p>
+            <p :class="{active:ind===1}" @click="ind=1">更新用户</p>
+          </div>
+          <div class="ti_form">
+            <p v-if="ind===1">
+              <select>
+                <option v-show="!UserList.length">请选择身份id</option>
+                <option v-for="(item,index) in UserList" :key="index">{{item.user_name}}</option>
+              </select>
+            </p>
+            <p>
+              <input type="text" placeholder="请输入用户" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入密码" />
+            </p>
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" id="button" value="重置" />
+          </div>
+        </form>
       </div>
       <div class="test_item">
-        <div class="ti_title">
-          <p class="active">添加身份</p>
-        </div>
-        <div class="ti_form">
-          <p>
-            <input type="text" placeholder="请输入身份名称" />
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p class="active">添加身份</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <input type="text" placeholder="请输入身份名称" />
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
       </div>
       <div class="test_item">
-        <div class="ti_title">
-          <p class="active">添加api接口权限</p>
-        </div>
-        <div class="ti_form">
-          <p>
-            <input type="text" placeholder="请输入api接口权限名称" />
-          </p>
-          <p>
-            <input type="text" placeholder="请输入api接口权限url" />
-          </p>
-          <p>
-            <input type="text" placeholder="请输入api接口权限方法" />
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p class="active">添加api接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <input type="text" placeholder="请输入api接口权限名称" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入api接口权限url" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入api接口权限方法" />
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" id="button" value="重置" />
+          </div>
+        </form>
       </div>
       <div class="test_item">
-        <div class="ti_title">
-          <p class="active">添加视图接口权限</p>
-        </div>
-        <div class="ti_form">
-          <p>
-            <select>
-              <option v-show="!View.length">请选择已有视图</option>
-              <option v-for="(item,index) in View" :key="index">{{item.view_authority_text}}</option>
-            </select>
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p class="active">添加视图接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!View.length">请选择已有视图</option>
+                <option v-for="(item,index) in View" :key="index">{{item.view_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" id="button" value="重置" />
+          </div>
+        </form>
       </div>
       <div class="test_item">
-        <div class="ti_title">
-          <p class="active">给身份设置api接口权限</p>
-        </div>
-        <div class="ti_form">
-          <p>
-            <select>
-              <option v-show="!Identity.length">请选择身份id</option>
-              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
-            </select>
-          </p>
-          <p>
-            <select>
-              <option v-show="!Authority.length">请选择api接口权限id</option>
-              <option v-for="(item,index) in Authority" :key="index">{{item.api_authority_text}}</option>
-            </select>
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p class="active">给身份设置api接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+            <p>
+              <select>
+                <option v-show="!Authority.length">请选择api接口权限id</option>
+                <option v-for="(item,index) in Authority" :key="index">{{item.api_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" id="button" value="重置" />
+          </div>
+        </form>
       </div>
       <div class="test_item">
-        <div class="ti_title">
-          <p class="active">给身份设置视图权限</p>
-        </div>
-        <div class="ti_form">
-          <p>
-            <select>
-              <option v-show="!Identity.length">请选择身份id</option>
-              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
-            </select>
-          </p>
-          <p>
-            <select>
-              <option v-show="!Info.length">请选择视图接口权限id</option>
-              <option v-for="(item,index) in Info" :key="index">{{item.view_authority_text}}</option>
-            </select>
-          </p>
-        </div>
-        <div class="ti_button">
-          <button>确定</button>
-          <button>重置</button>
-        </div>
+        <form action>
+          <div class="ti_title">
+            <p class="active">给身份设置视图权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+            <p>
+              <select>
+                <option v-show="!Info.length">请选择视图接口权限id</option>
+                <option v-for="(item,index) in Info" :key="index">{{item.view_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" id="button" value="重置" />
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -262,6 +280,15 @@ export default {
       .ti_button {
         width: 100%;
         display: flex;
+        .button {
+          padding: 0.3rem 0;
+          box-sizing: border-box;
+          width: calc(100% / 5);
+          border: 0;
+          background: #fff;
+          font-size: 0.85rem;
+          outline: none;
+        }
         button {
           padding: 0.3rem 0;
           box-sizing: border-box;

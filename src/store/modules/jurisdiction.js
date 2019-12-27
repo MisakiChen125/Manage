@@ -38,7 +38,6 @@ const actions = {
     },
     async apiAuthority({ commit }) {
         let res = await apiAuthority();
-        console.log(res)
         commit("setApiAuthority", res.data)
     },
     async showApi({ commit }) {
