@@ -25,27 +25,22 @@
       </el-select>
      </li>
     
-      <el-button type="primary">主要按钮</el-button>
+      
     </div>
     <div class="page_main">
-         <el-table
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-    </el-table>
+     <el-table :data="list" style="width: 100%">
+        <el-table-column  label="班级">1610A</el-table-column>
+         <el-table-column prop="student_name" label="姓名" ></el-table-column> -->
+         <el-table-column  label="阅卷状态">未阅</el-table-column>
+        <el-table-column prop="start_time" label="开始时间" ></el-table-column>
+        <el-table-column prop="end_time" label="结束时间"></el-table-column>
+        <el-table-column  label="成材率"></el-table-column>
+        <el-table-column  label="操作">
+            <a href="#" >批卷</a>
+        </el-table-column> 
+        
+     </el-table>
+      
     </div>
   </div>
 </template>
@@ -78,23 +73,6 @@ export default {
           label: "北京烤鸭"
         }
       ],
-       tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }],
       value1: "",
       value2:""
      
@@ -102,16 +80,16 @@ export default {
   },
   computed: {
     ...mapState({
-     
+    list:state=>state.exam.list
     })
   },
   methods: {
     ...mapActions({
-     
+        studentLists:"exam/studentLists"
     })
   },
   created() {
-    
+    this.studentLists()
   },
   mounted() {}
 };
@@ -130,6 +108,7 @@ export default {
         border-radius: 5px;
         align-items: center;
         margin: 40px 50px 20px;
+        flex-shrink: 0;
         .el-select--medium{
             margin: 0  30px 0 0;
         }

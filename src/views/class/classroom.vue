@@ -4,7 +4,11 @@
     <div class="room_main">
       <el-button type="primary" @click="addBtn">添加教室 +</el-button>
       <el-table :data="classList" style="width: 100%">
-        <el-table-column prop="room_text" label="教室号" :value="form.room_id"></el-table-column>
+        <el-table-column prop="room_text" label="教室号">
+             <template slot-scope="scope">
+                 <span style="margin-left: 10px">{{ scope.row.room_text }}</span>
+             </template>
+        </el-table-column>
         <el-table-column label="操作">
                     <template slot-scope="scope">
                     <p @click="handleDelete(scope.row)">删除</p>
@@ -13,13 +17,12 @@
       </el-table>
     </div>
     <el-dialog title="添加班级" :visible.sync="dialogFormVisible">
-      <el-form v-model="form">
-        <el-form-item label="教室号" :label-width="formLabelWidth">
-          <el-input v-model="form.room_text"    
-          autocomplete="off"></el-input>
-        </el-form-item>
-        
-      </el-form>
+      
+               <p>教室号：</p>
+
+           <el-form-item>
+             <el-input type="text" v-model="roomValue"></el-input>
+           </el-form-item>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="qBtn">确 定</el-button>
@@ -40,6 +43,7 @@ export default {
         form: {
           room_text:""
         },
+        roomValue:"",
         formLabelWidth: '120px'
     };
   },
@@ -52,11 +56,12 @@ export default {
    ...mapActions({
       getClassList:"studentClass/acquireYetClass",
       addClassRoom:"studentClass/addClassRoom",
-      deleteClassRoom:"studentClass/deleteClassRoom"
+      deleteRoom:"studentClass/deleteClassRoom"
    }),
-      addBtn(){
+      addBtn(row){
         this.dialogFormVisible = true;
         
+        this.addClassRoom({room_text:this.roomValue})
       },
       qBtn(){
         this.dialogFormVisible = false;
@@ -64,7 +69,14 @@ export default {
         
       },
       handleDelete(row){
-
+          console.log(row.room_id)
+          if(confirm('是否删除')){
+            this.deleteRoom({room_id:row.room_id}).then(res=>{
+            this.getClassList()
+          })
+          }else{
+            alert('取消删除')
+          }
       }
   },
   created() {
