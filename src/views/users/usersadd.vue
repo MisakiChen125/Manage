@@ -23,7 +23,10 @@
           <p>
             <select>
               <option v-show="!Identity.length">请选择身份id</option>
-              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
+              <option
+                v-for="(item,index) in Identity"
+                :key="index"
+              >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
             </select>
           </p>
         </div>
@@ -91,7 +94,7 @@
           <p>
             <select>
               <option v-show="!Identity.length">请选择身份id</option>
-              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
+              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
             </select>
           </p>
           <p>
@@ -114,7 +117,7 @@
           <p>
             <select>
               <option v-show="!Identity.length">请选择身份id</option>
-              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text}}</option>
+              <option v-for="(item,index) in Identity" :key="index">{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
             </select>
           </p>
           <p>
