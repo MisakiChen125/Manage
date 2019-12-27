@@ -3,7 +3,7 @@ import { mapState, mapActions } from 'vuex';
   <div class="student_page">
     <div class="titles">学生管理</div>
     <div class="titlebar">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form :inline="true" :model="roleForm" class="demo-form-inline">
         <el-form-item>
           <el-input v-model="roleForm.name" placeholder="输入学生姓名"></el-input>
         </el-form-item>
