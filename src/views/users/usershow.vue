@@ -13,8 +13,8 @@
     </ul>
     <div class="main">
       <h3 class="m_title">{{arr[ind].text}}</h3>
-      <!-- {{showArr}} -->
       <div class="table">
+        <!-- 分页列表 -->
         <el-table
           :data="showArr.length>pagesize?showArr.slice((currentPage-1)*pagesize,currentPage*pagesize):showArr"
           style="width: 100%"
@@ -39,6 +39,7 @@
             v-if="backobj.method"
           ></el-table-column>
         </el-table>
+        <!-- 分页器 -->
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"

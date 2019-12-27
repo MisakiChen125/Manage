@@ -33,7 +33,7 @@
           </div>
           <div class="ti_button">
             <button>确定</button>
-            <input type="reset" class="button" id="button" value="重置" />
+            <input type="reset" class="button" value="重置" />
           </div>
         </form>
       </div>
@@ -71,12 +71,13 @@
           </div>
           <div class="ti_button">
             <button>确定</button>
-            <input type="reset" class="button" id="button" value="重置" />
+            <input type="reset" class="button" value="重置" />
           </div>
         </form>
       </div>
       <div class="test_item">
         <form action>
+          -
           <div class="ti_title">
             <p class="active">添加视图接口权限</p>
           </div>
@@ -90,7 +91,7 @@
           </div>
           <div class="ti_button">
             <button>确定</button>
-            <input type="reset" class="button" id="button" value="重置" />
+            <input type="reset" class="button" value="重置" />
           </div>
         </form>
       </div>
@@ -118,7 +119,7 @@
           </div>
           <div class="ti_button">
             <button>确定</button>
-            <input type="reset" class="button" id="button" value="重置" />
+            <input type="reset" class="button" value="重置" />
           </div>
         </form>
       </div>
@@ -146,7 +147,7 @@
           </div>
           <div class="ti_button">
             <button>确定</button>
-            <input type="reset" class="button" id="button" value="重置" />
+            <input type="reset" class="button" value="重置" />
           </div>
         </form>
       </div>
