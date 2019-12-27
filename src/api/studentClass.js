@@ -39,9 +39,9 @@ export function addClass(data) {
 
 // 删除教室接口
 export function deleteClassRoom(data) {
-    let {room_id} =data
-    return request.delete('/marnger/room/delete',{data:room_id})
-}
+    let {room_id}=data
+    return request.delete('/manger/room/delete', { data: {room_id} })
+  }
 
 
 // 更新教室接口

@@ -73,12 +73,12 @@ const actions={
     },
     async addClassRoom({commit},payload){//添加教室
         let res=await addClassRoom(payload)
-        // console.log(res)
+        console.log(res)
     },
     
     async deleteClassRoom({commit},payload){//删除教室
         let res=await deleteClassRoom(payload)
-        // console.log(res)
+        console.log(res)
     },
     async YetStudent({commit},payload){//已经分班学生
         let res=await YetStudent(payload)

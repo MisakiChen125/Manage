@@ -11,16 +11,15 @@ export function changePaper(score) {
     })
   }
 // 获取学生试卷详情
-  export function acquire(query){
+  export function acquire(){
       return request({
           url:'/exam/student/t27znv-gu7azm-qpq9ai-laaf9m',
-          method:'get', 
-          params:query       
+          method:'get'     
       })
   }
 
 //获取学生试卷列表
-export function studentList(query) { 
+export function studentLists(query) { 
     return request({
         url:'/exam/student',
         method:'get', 
