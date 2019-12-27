@@ -4,22 +4,25 @@
     <div class="room_main">
       <el-button type="primary" @click="addBtn">添加教室 +</el-button>
       <el-table :data="classList" style="width: 100%">
-        <el-table-column prop="grade_name" label="教室号"></el-table-column>
-        <el-table-column style="width: 100%" label="操作">
-          <el-button  type="text" @click="open">删除</el-button>
+        <el-table-column prop="room_text" label="教室号" :value="form.room_id"></el-table-column>
+        <el-table-column label="操作">
+                    <template slot-scope="scope">
+                    <p @click="handleDelete(scope.row)">删除</p>
+                </template>
         </el-table-column>
       </el-table>
     </div>
     <el-dialog title="添加班级" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
+      <el-form v-model="form">
         <el-form-item label="教室号" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-input v-model="form.room_text"    
+          autocomplete="off"></el-input>
         </el-form-item>
         
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="qBtn">确 定</el-button>
       </div>
     </el-dialog>
     
@@ -31,55 +34,37 @@ export default {
   props: {},
   components: {},
   data() {
-    return {
-    
+    return {   
        dialogTableVisible: false,
         dialogFormVisible: false,
         form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          room_text:""
         },
         formLabelWidth: '120px'
     };
   },
   computed: {
       ...mapState({
-          classList:state=>state.studentClass.classList,
-          addList:state=>state.studentClass.addList
+          classList:state=>state.studentClass.classList
       })
   },
   methods: {
    ...mapActions({
       getClassList:"studentClass/acquireYetClass",
-      addListFn:"studentClass/addClass"
+      addClassRoom:"studentClass/addClassRoom",
+      deleteClassRoom:"studentClass/deleteClassRoom"
    }),
-    open() {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-      },
       addBtn(){
         this.dialogFormVisible = true;
-        this.addListFn()
         
+      },
+      qBtn(){
+        this.dialogFormVisible = false;
+        
+        
+      },
+      handleDelete(row){
+
       }
   },
   created() {
