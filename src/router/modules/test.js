@@ -15,26 +15,26 @@ const testRoutes = {
     },
     children: [
       {
-        path: 'testadd',
-        name:'testadd',
-        component: () => import('@/views/test/testadd'),
-        meta:{
-          title:'添加考试'
-        }
+        path: '/Addexam',
+        component: () => import('@/views/exam/Addexam'),
+        name: 'AddExam',
+        meta: { title: '添加考试', icon: 'guide', noCache: true },
       },
       {
-        path: 'testlist',
-        component: () => import('@/views/test/testlist'),
-        name: 'testlist',
-        meta:{
-          title:'试卷列表'
-        }
-        
+        path: '/Listexam',
+        component: () => import('@/views/exam/Listexam'),
+        name: 'ListExam',
+        meta: { title: '试卷列表', icon: 'guide', noCache: true },
       },
-      //创建试卷
       {
-        path:"testCreate",
-        component:()=>import("@/views/test/testCreate")
+        path: '/Addexam/Addedit',
+        component: () => import('@/views/exam/Addedit'),
+        name: 'Addedit',
+      },
+      {
+        path: '/Detail',
+        component: () => import('@/views/exam/Detail'),
+        name: 'Detail',
       }
     ]
 }
