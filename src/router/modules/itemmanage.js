@@ -14,33 +14,6 @@ const itemmanageRoutes = {
       icon: 'edit',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
-    // children: [
-    //   {
-    //     path: 'itemadd',
-    //     name:'itemadd',
-    //     component: () => import('@/views/TestManagement/index'),
-    //     meta:{
-    //       title:'添加试卷'
-    //     }
-    //   },
-    //   {
-    //     path: 'classify',
-    //     component: () => import('@/views/TestManagement/TestClassification'),
-    //     name: 'classify',
-    //     meta:{
-    //       title:'试卷分类'
-    //     }
-        
-    //   },
-    //   {
-    //     path: 'itemlook',
-    //     component: () => import('../../views/itemmanage/itemlook.vue'),
-    //     name: 'itemlook',
-    //     meta:{
-    //       title:'查看试卷'
-    //     }
-    //   }
-    // ],
     children: [
 
       {
