@@ -9,16 +9,16 @@ import { mapState, mapActions } from 'vuex';
         </el-form-item>
         <el-form-item>
           <el-select v-model="roleForm.room_id" placeholder="请选择教室号">
-            <el-option v-for="(item,index) in yiList" :key="index" :label="item.room_text" :value="item.room_id"></el-option>
+            <el-option v-for="(item,index) in yiList" :key="index" :label="item.room_text" :value="item.room_text"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-select v-model="roleForm.grade_id" placeholder="班级名">
-            <el-option v-for="(item,index) in yiList" :key="index" :label="item.grade_name" :value="item.grade_id"></el-option>
+            <el-option v-for="(item,index) in yiList" :key="index" :label="item.grade_name" :value="item.grade_name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">搜索</el-button>
+          <el-button type="primary" @click="serachBtn">搜索</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">重置</el-button>
@@ -26,14 +26,16 @@ import { mapState, mapActions } from 'vuex';
       </el-form>
     </div>
     <div class="student_form">
-      <el-table :data="yiList.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="width: 100%" :row-class-name="tableRowClassName">
-        <el-table-column prop="student_name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="student_id" label="学号" width="180"></el-table-column>
+      <el-table :data=" yiList.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="width: 100%" :row-class-name="tableRowClassName">
+        <el-table-column prop="student_name" label="姓名" ></el-table-column>
+        <el-table-column prop="student_id" label="学号" ></el-table-column>
         <el-table-column prop="grade_name" label="班级"></el-table-column>
         <el-table-column prop="room_text" label="教室"></el-table-column>
         <el-table-column prop="student_pwd" label="密码"></el-table-column>
         <el-table-column  label="操作">
-            <span >删除</span>
+           <template slot-scope="scope">
+                    <p @click="handleDelete(scope.row)">删除</p>
+                </template>
         </el-table-column>
       </el-table>
     </div>
@@ -52,7 +54,7 @@ import { mapState, mapActions } from 'vuex';
   </div>
 </template>
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapActions,mapMutations} from 'vuex'
 import variables from '@/styles/variables.scss';
 export default {
   data() {
@@ -62,6 +64,7 @@ export default {
         grade_id:"",
         room_id:""
       },
+      studentId:"",
       currentPage:1,
       pageSize:5,
       totle:270
@@ -69,7 +72,8 @@ export default {
   },
   computed: {
     ...mapState({
-     yiList:state=>state.studentClass.yiList
+     yiList:state=>state.studentClass.yiList,
+     setStudentList:state=>state.studentClass.setStunt
     })
   },
   methods: {
@@ -94,8 +98,29 @@ export default {
       console.log(val)
     },
     ...mapActions({
-      YetStudent:"studentClass/YetStudent"
-    })
+      YetStudent:"studentClass/YetStudent",
+       deleteStudent:"studentClass/deleteStudent"
+    }),
+    handleDelete(row){
+    if(confirm('是否删除')){
+              this.deleteStudent({student_id:row.student_id}).then(res=>{
+                 this.YetStudent()
+              })
+             
+          }else{
+              alert('取消成功')
+          }
+    },
+    ...mapMutations({
+      setRoom:"studentClass/setRoom",//筛选教室
+      setGrade:"studentClass/setGrade",//筛选班级
+      setSearched:"studentClass/setSearched"//筛选名字
+    }),
+    serachBtn(){
+      // this.setSearched(this.roleForm.name)
+      console.log(1818)
+    }
+    
   },
   created() {
     this.YetStudent()

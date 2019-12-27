@@ -64,13 +64,10 @@ export function addClassRoom(data) {
 }
 
 // 删除学生接口
-export function deleteStudent() {
-    return request({
-        url:'/manger/student/:id=>student_id',
-        method:'delete'
-    })
-}
-
+export function deleteStudent(data) {
+    let {student_id}=data
+    return request.delete(`/manger/student/${student_id}`)
+  }
 
 // 没有分班学生接口
 export function noStudent() {

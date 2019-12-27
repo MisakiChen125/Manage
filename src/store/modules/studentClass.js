@@ -1,18 +1,58 @@
-import {acquireYetClass,addClass,deleteClass,addClassRoom,YetStudent,deleteClassRoom} from '@/api/studentClass'
+import {acquireYetClass,addClass,deleteClass,addClassRoom,YetStudent,deleteClassRoom,deleteStudent} from '@/api/studentClass'
 
 const state={
-    classList:[],
-    addList:[],
-    yiList:[]
+    classList:[],//班级列表
+    yiList:[],//已分配班级学生
+    allRoom:[],//全部教室
+    allGrade:[],//全部班级
+    setStudent:[]//筛选的学生
    
 }
 const mutations={
     setClassList(state,payload){
         state.classList=payload;
-        state.arrList=payload;
+     
     },
     setYiList(state,payload){
         state.yiList=payload
+    },
+    getRoome(state,payload){//全部教室
+        if(payload.code===1){
+            state.getRoom=payload.data
+        }else{
+            alert(payload.msg)
+        }
+    },
+    //全部班级
+    getGrade(state,payload){
+        if(payload===1){
+            state.allGrade=payload
+        }else{
+            alert(payload.msg)
+        }
+    },
+    setRoom(state,payload){//根据所有教室筛选
+        let list=state.yiList.filter(item=>{
+            if(item.room_text===payload){
+                return item
+            }
+        })
+        toCurrent(list)
+    },
+    setGrade(state,payload){//班级筛选
+        let list =state.yiList.filter(item=>{
+            if(item.grade_text===payload){
+                return item
+            }
+        })
+        toCurrent(list)
+    },
+    setSearch(state,payload){
+        if(!Array.isArray(state.yiList)&&payload !==""){
+            state.setStudent=state.yiList.filter(item=>{
+               if(item.student_name.indexOf(payload) !==-1) return item
+            })
+        }
     }
    
    
@@ -29,21 +69,25 @@ const actions={
     },
     async deleteClass({commit},payload){//删除班级
         let res=await deleteClass(payload)
-        console.log(res)
+        // console.log(res)
     },
     async addClassRoom({commit},payload){//添加教室
         let res=await addClassRoom(payload)
-        console.log(res)
+        // console.log(res)
     },
     
     async deleteClassRoom({commit},payload){//删除教室
         let res=await deleteClassRoom(payload)
-        console.log(res)
+        // console.log(res)
     },
     async YetStudent({commit},payload){//已经分班学生
         let res=await YetStudent(payload)
         commit('setYiList',res.data)
-        console.log(res.data)
+        // console.log(res.data)
+    },
+    async deleteStudent({commit},payload){//删除学生
+        let res=await deleteStudent(payload)
+        console.log(res)
     }
 
     
