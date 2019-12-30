@@ -1,4 +1,4 @@
-import {acquireYetClass,addClass,deleteClass,addClassRoom,YetStudent,deleteClassRoom,deleteStudent} from '@/api/studentClass'
+import {acquireYetClass,addClass,deleteClass,addClassRoom,YetStudent,deleteClassRoom,deleteStudent,acquireClass} from '@/api/studentClass'
 
 const state={
     classList:[],//班级列表
@@ -16,12 +16,8 @@ const mutations={
     setYiList(state,payload){
         state.yiList=payload
     },
-    getRoome(state,payload){//全部教室
-        if(payload.code===1){
-            state.getRoom=payload.data
-        }else{
-            alert(payload.msg)
-        }
+    getRoom(state,payload){//全部教室
+        state.allRoom=payload
     },
     //全部班级
     getGrade(state,payload){
@@ -67,13 +63,19 @@ const actions={
        let res=await addClass(payload)
        console.log(res)
     },
+    async acquireClass({commit},payload){
+        let res=await acquireClass(payload)
+        commit('getRoom',res.data)
+        console.log(res)
+    },
     async deleteClass({commit},payload){//删除班级
         let res=await deleteClass(payload)
         // console.log(res)
     },
     async addClassRoom({commit},payload){//添加教室
-        let res=await addClassRoom(payload)
-        console.log(res)
+        const {room_text} =payload
+        let res=await addClassRoom({room_text:room_text})
+       console.log(res.msg)
     },
     
     async deleteClassRoom({commit},payload){//删除教室

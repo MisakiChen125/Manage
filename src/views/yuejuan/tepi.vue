@@ -60,8 +60,6 @@ export default {
       
       this.currentPage=val
       console.log(val)
-      
-      // this.setStates({pageSize:this.pageSize,current:val})
     },
     ...mapActions({
       acquireYetClass:"studentClass/acquireYetClass"

@@ -1,118 +1,132 @@
 <template>
-  <div class="room_page">
-    <div class="title">教室管理</div>
-    <div class="room_main">
-      <el-button type="primary" @click="addBtn">添加教室 +</el-button>
-      <el-table :data="classList" style="width: 100%">
-        <el-table-column prop="room_text" label="教室号">
-             <template slot-scope="scope">
-                 <span style="margin-left: 10px">{{ scope.row.room_text }}</span>
-             </template>
-        </el-table-column>
-        <el-table-column label="操作">
+    <div class="warp">
+        <el-container>
+        <!-- 表单添加 -->
+            <el-form status-icon class="demo-ruleForm" v-show="showForm">
+                <p>教室号</p>
+                <el-form-item>
+                    <el-input type="text" v-model="roomValue"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm">添加</el-button>
+                    <el-button @click="resetForm">取消</el-button>
+                </el-form-item>
+            </el-form>
+            <el-header style="height:45px;">
+                <el-button type="primary" @click="toForm"> + 添加教室</el-button>
+            </el-header>
+            <el-main style="height:100%;display: flex;flex-direction: column;">
+                <!-- 教室渲染 -->
+                <el-table
+                    :data="roomList"
+                    style="width: 100%;flex:1;overflow-y: auto;" 
+                    :header-cell-style="{background:'#f4f4f4',color:'#555',lineHeight:'20px',fontSize:'14px'}">
+                    <el-table-column
+                    label="教室名">
                     <template slot-scope="scope">
-                    <p @click="handleDelete(scope.row)">删除</p>
-                </template>
-        </el-table-column>
-      </el-table>
+                        <span style="margin-left: 10px">{{ scope.row.room_text }}</span>
+                    </template>
+                    </el-table-column>
+                    <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                        
+                        type="danger"
+                        :style="{background:'none',color:'#09f',border:0}"
+                        @click="handleDelete(scope.row)">删除</el-button>
+                    </template>
+                    </el-table-column>
+                </el-table>
+            </el-main>
+        </el-container>
     </div>
-    <el-dialog title="添加班级" :visible.sync="dialogFormVisible">
-      
-               <p>教室号：</p>
-
-           <el-form-item>
-             <el-input type="text" v-model="roomValue"></el-input>
-           </el-form-item>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="qBtn">确 定</el-button>
-      </div>
-    </el-dialog>
     
-  </div>
 </template>
+
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState , mapActions } from 'vuex'
 export default {
-  props: {},
-  components: {},
-  data() {
-    return {   
-       dialogTableVisible: false,
-        dialogFormVisible: false,
-        form: {
-          room_text:""
-        },
-        roomValue:"",
-        formLabelWidth: '120px'
-    };
-  },
-  computed: {
-      ...mapState({
-          classList:state=>state.studentClass.classList
-      })
-  },
-  methods: {
-   ...mapActions({
-      getClassList:"studentClass/acquireYetClass",
-      addClassRoom:"studentClass/addClassRoom",
-      deleteRoom:"studentClass/deleteClassRoom"
-   }),
-      addBtn(row){
-        this.dialogFormVisible = true;
-        
-        this.addClassRoom({room_text:this.roomValue})
-      },
-      qBtn(){
-        this.dialogFormVisible = false;
-        
-        
-      },
-      handleDelete(row){
-          console.log(row.room_id)
-          if(confirm('是否删除')){
-            this.deleteRoom({room_id:row.room_id}).then(res=>{
-            this.getClassList()
-          })
-          }else{
-            alert('取消删除')
-          }
+    data() {
+      return {
+          showForm:false,
+          roomValue:'',
+          ro_text:"111"
       }
-  },
-  created() {
-    this.getClassList()
-    
-  },
-  mounted() {}
-};
+    },
+    computed:{
+          ...mapState({
+          roomList:state=>state.studentClass.allRoom
+      })
+    },
+    methods: {
+      ...mapActions({
+          getClassList:"studentClass/acquireClass",
+          addClassRoom:"studentClass/addClassRoom",
+          deleteRoom:"studentClass/deleteClassRoom"
+      }),
+    //   删除教室
+      handleDelete(row) {
+          if(confirm('是否删除')){
+              this.deleteRoom({room_id:row.room_id}).then(res=>{
+                this.getClassList()
+              })
+          }else{
+              alert('取消成功')
+          }  
+          
+      },
+      //表单功能
+      submitForm() {
+            this.addClassRoom({room_text:this.roomValue}).then(res=>{
+                this.getClassList()
+            })
+            this.showForm=false
+          
+      },
+      resetForm() {
+            this.showForm=false
+            
+            this.roomValue=""
+      },
+      toForm(){
+            this.showForm=true
+      }
+    },
+    created(){
+      
+        this.getClassList()
+       
+    }
+}
 </script>
+
 <style lang="scss" scoped>
-.room_page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  .title {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    margin: 10px 20px;
-  }
-  .room_main {
+.warp{
     width: 100%;
     height: 100%;
-    background: #fff;
-    margin: 10px 20px;
-  }
 }
-.el-button {
-  margin: 20px 20px;
+.demo-ruleForm{
+    width: 500px;
+    position: absolute; 
+    left: 50%; 
+    top: 40%;
+    transform: translate(-50%, -50%); 
+    z-index: 12;
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 40px 40px 0 0;
+    transition:.5s;
+    border: 1px solid #000;
+    padding-left: 50px;
 }
-.el-table {
-  margin: 0 20px;
+.el-header{
+    display: flex;
+    align-items: center;
 }
-.has-gutter {
-  background: #f4f7f9;
+.el-main{
+    padding: 0 20px;
+}
+tbody{
+    height: 100%;
 }
 </style>
