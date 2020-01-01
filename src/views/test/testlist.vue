@@ -48,11 +48,13 @@
           </el-table>
         </div>
       </div>
+       
     </section>
   </div>
 </template>
 <script>
 import { mapState,mapActions } from 'vuex';
+import XLSX from 'xlsx'
 export default {
   props: {},
   components: {},
@@ -60,7 +62,8 @@ export default {
     return {
       value: "",
       value1:"",
-      grade_name:''
+      grade_name:'',
+      data:[]
     }
   },
   computed: {
@@ -68,14 +71,25 @@ export default {
          examAllList:state=>state.questions.examList,
          getClass:state=>state.questions.getClass,
          tableData:state=>state.questions.tableData
-    })
+    }),
   },
   methods: {
     ...mapActions({
         examType:'questions/examType',
         examAllType:'questions/examAllType', 
         acquireExamList:'questions/acquireExamList'
-    })
+    }),
+    importExcel(){
+
+    },
+    exportExcel(){
+       var wb=XLSX.utils.book_new();
+       console.log(this.data,'keys...',Object.keys(this.data[0]));
+      //  创建worksheet
+      var ws=XLSX.utils.json_to_sheet(this.data,{header:Object.keys(this.data[0])});
+      console.log('ws;;;;;;;;;;;;;',ws);
+      XLSX.writeFile(wb,'')
+    }
   },
   created() {
        this.examType(),

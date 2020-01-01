@@ -71,7 +71,7 @@ export default {
           });          
         });
       }
-  },
+  },    
   created() {
       this.dataList = JSON.parse(sessionStorage.getItem("res")).data
   }
