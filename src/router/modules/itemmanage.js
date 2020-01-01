@@ -8,9 +8,9 @@ const itemmanageRoutes = {
   name: 'TestManagement',
     // redirect: '/itemmanage/add',
     alwaysShow: true, 
-    name: 'itemmanage',
+    name: 'Itemmanage',
     meta: {
-      title: '试题管理',
+      title: 'itemmanage',
       icon: 'edit',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
@@ -21,7 +21,7 @@ const itemmanageRoutes = {
           component: () =>
               import ('@/views/TestManagement/index'),
           name: 'AddItem',
-          meta: { title: '添加试题' }
+          meta: { title: 'addItem' }
       },
       {
           path: 'TestClassification',
