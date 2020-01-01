@@ -9,7 +9,9 @@ import { mapState, mapActions } from 'vuex';
         </el-form-item>
         <el-form-item>
           <el-select v-model="roleForm.room_id" placeholder="请选择教室号">
-            <el-option v-for="(item,index) in yiList" :key="index" :label="item.room_text" :value="item.room_text"></el-option>
+            <el-option v-for="(item,index) in yiList" :key="index" 
+            :label="item.room_text" 
+            :value="item.room_text"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -43,11 +45,20 @@ import { mapState, mapActions } from 'vuex';
         
             <el-pagination
                 @size-change="handleSizeChange"
+<<<<<<< HEAD
                 @current-change="handleCurrentChange"              
                 :page-sizes="[100, 200, 300, 400]"
                 :page-size="100"
                 layout=" sizes, jumper"
                 :total="400">
+=======
+                @current-change="handleCurrentChange"
+               :current-page="currentPage"
+                :page-sizes="[5,10,20,50,100]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="yiList.length">
+>>>>>>> 127cea1b4d25af080a43f2b59b2d68d8413d746e
              </el-pagination>
       </div>
   </div>
@@ -66,7 +77,7 @@ export default {
       studentId:"",
       currentPage:1,
       pageSize:5,
-      totle:270
+      totle:""
     };
   },
   computed: {
@@ -122,7 +133,8 @@ export default {
     
   },
   created() {
-    this.YetStudent()
+    this.YetStudent();
+    console.log(this.totle)
   },
 };
 </script>

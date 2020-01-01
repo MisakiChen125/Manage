@@ -56,11 +56,11 @@ export function updateClassRoom(query) {
 
 // 添加教室接口
 export function addClassRoom(data) {
-    return request({
-        url:'/manger/room',
-        method:'post',
-        data
-    })
+     return request({
+    url: '/manger/room',
+    method: 'post',
+    data
+  })
 }
 
 // 删除学生接口

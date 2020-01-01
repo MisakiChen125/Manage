@@ -91,22 +91,21 @@ export default {
     addBtn() {
       this.dialogFormVisible = true
     },
-    qBtn(){
+    qBtn(){//添加班级
       this.dialogFormVisible = false;
       //  console.log()
        this.addClass(this.roleFrom).then(res=>{
          this.acquireYetClass()
        })
     },
-    handleEdit(row) {
-            // this.showForm = true
-            // this.grade_name= row.grade_name,
-            // this.room_text= row.room_id,
-            // this.subject_text= row.subject_id,
-            // this.grade_id=row.grade_id
+    handleEdit(row) {//更新班级
+            this.showForm = true
+            this.grade_name= row.grade_name,
+            this.room_text= row.room_id,
+            this.subject_text= row.subject_id,
+            this.grade_id=row.grade_id
       },
-      //删除
-      handleDelete(row) {
+      handleDelete(row) {//删除班级
           if(confirm('是否删除')){
               this.deleteClass({grade_id:row.grade_id}).then(res=>{
                  this.acquireYetClass()
