@@ -47,6 +47,7 @@
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
+          <router-link to="/components/avatar-upload">上传图片</router-link>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
