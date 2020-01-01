@@ -47,8 +47,7 @@ import { mapState, mapActions } from 'vuex';
             </el-pagination>
             <el-pagination
                 @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-               
+                @current-change="handleCurrentChange"              
                 :page-sizes="[100, 200, 300, 400]"
                 :page-size="100"
                 layout=" sizes, jumper"

@@ -1,6 +1,8 @@
 export default {
   route: {
     dashboard: 'Dashboard',
+    itemmanage:'itemManage',
+    addItem:'addItem',
     documentation: 'Documentation',
     guide: 'Guide',
     permission: 'Permission',

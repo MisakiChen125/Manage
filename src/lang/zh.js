@@ -1,6 +1,8 @@
 export default {
   route: {
     dashboard: '首页',
+    itemmanage:'试卷管理',
+    addItem:'添加试题',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',
