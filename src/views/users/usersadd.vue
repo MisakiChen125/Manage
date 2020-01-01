@@ -31,7 +31,11 @@
               </select>
             </p>
           </div>
-          <div class="ti_button">
+          <div class="ti_button" v-if="ind===1">
+            <button @click="addUser(0)">确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+          <div class="ti_button" v-else-if="ind===0">
             <button>确定</button>
             <input type="reset" class="button" value="重置" />
           </div>
@@ -180,7 +184,8 @@ export default {
       showUserList: "jurisdiction/showUserList",
       apiAuthority: "jurisdiction/apiAuthority",
       acquireView: "jurisdiction/acquireView",
-      showInfo: "jurisdiction/showInfo"
+      showInfo: "jurisdiction/showInfo",
+      addUser: "jurisdiction/addUser"
     })
   },
   async created() {

@@ -1,4 +1,4 @@
-import { showUserList, showIdentity, apiAuthority, showApi, acquireView, showInfo } from "@/api/jurisdiction"
+import { showUserList, showIdentity, apiAuthority, showApi, acquireView, showInfo, addUser } from "@/api/jurisdiction"
 const state = {
     UserList: [],
     Identity: [],
@@ -25,6 +25,8 @@ const mutations = {
     },
     setShowInfo(state, actions) {
         state.Info = actions
+    },
+    setaddUser(state,actions){
     }
 }
 const actions = {
@@ -51,6 +53,12 @@ const actions = {
     async showInfo({ commit }) {
         let res = await showInfo();
         commit("setShowInfo", res.data)
+    },
+    //add
+    async addUser({ commit }, actions) {
+        console.log(actions)
+        // let res = await addUser(actions);
+        // commit("setaddUser", res.data)
     }
 }
 export default {
