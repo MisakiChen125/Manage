@@ -2,6 +2,7 @@
 
 import request from '@/utils/request'
 
+
 export function updateUser(user_id) {
     return request({
         url:'/user/user',
@@ -145,4 +146,3 @@ export function showInfo(groupid) {
         params:{groupid}
     })
 }
-

@@ -7,14 +7,12 @@
         <el-table-column prop="grade_name" label="班级名"></el-table-column>
         <el-table-column prop="subject_text" label="课程名"></el-table-column>
         <el-table-column prop="room_text" label="教室号"></el-table-column>
-       
                  <el-table-column label="操作">
                     <template slot-scope="scope">
                     <p @click="handleEdit(scope.row)">修改</p>
                     <p @click="handleDelete(scope.row)">删除</p>
                 </template>
                  </el-table-column>
-               
       </el-table>
     </div>
     <el-dialog title="添加班级" :visible.sync="dialogFormVisible">
@@ -92,8 +90,6 @@ export default {
     }),
     addBtn() {
       this.dialogFormVisible = true
-     
-      
     },
     qBtn(){//添加班级
       this.dialogFormVisible = false;

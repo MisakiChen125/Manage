@@ -1,234 +1,321 @@
 <template>
-  <div>
-        <h2 style="padding: 5px 20px; margin-top: 10px;">添加用户</h2>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <div style="width: 100%;text-align: left;margin: 0 0 10px 0;">
-                <el-button>添加用户</el-button><el-button>更新用户</el-button>
-            </div>
-            <!-- 第一个 -->
-            <el-form-item label="账号:" prop="user_name">
-                <el-input  v-model="ruleForm.user_name" autocomplete="off" placeholder="请输入账号">
-                </el-input>
-            </el-form-item>
-            <el-form-item label="密码:" prop="user_pwd">
-                <el-input type="password" v-model="ruleForm.user_pwd" autocomplete="off" placeholder="请输入密码">
-                </el-input>
-            </el-form-item>
-            <el-form-item label="身份Id:" prop="identity_id">
-                <el-select v-model="ruleForm.identity_id" placeholder="请选择身份id" style="margin-bottom: 20px;">
-                  <el-option
-                    v-for="item in userId"
-                    :key="item.user_id"
-                    :label="item"
-                    :value="item">
-                  </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- 第二个 -->
-        <el-form :model="ruleForm" status-icon ref="ruleForm1" label-width="100px"
-        class="demo-ruleForm1">
-            <div style="width: 100%;text-align: left;margin-bottom:10px;">
-                <el-button >添加身份</el-button>
-            </div>
-            <el-form-item label="账号:" prop="shen">
-                <el-input type="text" v-model="ruleForm.shen" autocomplete="off" placeholder="请输入身份">
-                </el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="Addshen()">确定</el-button>
-                <el-button @click="resetForm('ruleForm1')">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- 第三个 -->
-        <el-form :model="ruleForm" status-icon ref="ruleForm2" label-width="100px"
-        class="demo-ruleForm2">
-            <div style="width: 100%;text-align: left;margin-bottom:10px;">
-                <el-button>添加api接口权限</el-button>
-            </div>
-            <el-form-item label="权限名称:" prop="pass">
-                <el-input type="text" v-model="ruleForm.permissions_name" autocomplete="off" placeholder="请输入api接口权限名称"></el-input>
-            </el-form-item>
-            <el-form-item label="权限url:" prop="checkPass">
-                <el-input type="text" v-model="ruleForm.permissions_url" autocomplete="off" placeholder="请输入api接口权限url"></el-input>
-            </el-form-item>
-            <el-form-item label="权限方法:" prop="age">
-                <el-input type="text" v-model="ruleForm.permissions_list" placeholder="请输入api接口权限方法"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="AddPermissions()">确定</el-button>
-                <el-button @click="resetForm('ruleForm2')">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- 第四个 -->
-        <el-form :model="ruleForm" status-icon ref="ruleForm3" label-width="100px"
-        class="demo-ruleForm3">
-            <div style="width: 100%;text-align: left;margin-bottom:10px;">
-                <el-button>添加视图接口权限</el-button>
-            </div>
-            <el-select v-model="ruleForm.AddList" placeholder="请选择已有视图" style="margin-bottom: 20px;">
-              <el-option
-                v-for="item in AddJurisdiction"
-                :key="item.view_authority_id"
-                :label="item.view_authority_text"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-form-item>
-                <el-button type="primary" @click="jurisdictionList()">确定</el-button>
-                <el-button @click="resetForm('ruleForm3')">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- 第五个 -->
-        <el-form :model="ruleForm" status-icon ref="ruleForm4" label-width="100px"
-        class="demo-ruleForm4">
-            <div style="width: 100%;text-align: left;margin-bottom:10px;">
-                <el-button>给身份设置api接口权限</el-button>
-            </div>
-            <el-select v-model="value" placeholder="请选择身份id" style="margin-bottom: 20px;">
-              <el-option
-                v-for="item in userId"
-                :key="item"
-                :value="item">
-              </el-option>
-            </el-select>
-            <el-select v-model="value" placeholder="请选择api接口权限" style="margin-bottom: 20px;">
-              <el-option
-                v-for="item in options"
-                :key="item"
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <el-form-item>
-                <el-button type="primary">确定</el-button>
-                <el-button @click="resetForm('ruleForm4')">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- 第六个 -->
-        <el-form :model="ruleForm" status-icon ref="ruleForm5" label-width="100px"
-        class="demo-ruleForm5">
-            <div style="width: 100%;text-align: left;margin-bottom:10px;">
-                <el-button>给身份设置视图权限</el-button>
-            </div>
-           <el-select v-model="value" placeholder="请选择身份id" style="margin-bottom: 20px;">
-              <el-option
-                v-for="item in options"
-                :key="item"
-               
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <el-select v-model="value" placeholder="请选择视图权限id" style="margin-bottom: 20px;">
-              <el-option
-                v-for="item in options"
-                :key="item"
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <el-form-item>
-                <el-button type="primary">确定</el-button>
-                <el-button @click="resetForm('ruleForm5')">重置</el-button>
-            </el-form-item>
-        </el-form>
+  <div class="usersadd">
+    <h3>添加用户</h3>
+    <div class="test">
+      <div class="test_item">
+        <form action>
+          <div class="ti_title">
+            <p :class="{active:ind===0}" @click="ind=0">添加用户</p>
+            <p :class="{active:ind===1}" @click="ind=1">更新用户</p>
+          </div>
+          <div class="ti_form">
+            <p v-if="ind===1">
+              <select>
+                <option v-show="!UserList.length">请选择身份id</option>
+                <option v-for="(item,index) in UserList" :key="index">{{item.user_name}}</option>
+              </select>
+            </p>
+            <p>
+              <input type="text" placeholder="请输入用户" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入密码" />
+            </p>
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button" v-if="ind===1">
+            <button @click="addUser(0)">确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+          <div class="ti_button" v-else-if="ind===0">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+      <div class="test_item">
+        <form action>
+          <div class="ti_title">
+            <p class="active">添加身份</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <input type="text" placeholder="请输入身份名称" />
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+      <div class="test_item">
+        <form action>
+          <div class="ti_title">
+            <p class="active">添加api接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <input type="text" placeholder="请输入api接口权限名称" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入api接口权限url" />
+            </p>
+            <p>
+              <input type="text" placeholder="请输入api接口权限方法" />
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+      <div class="test_item">
+        <form action>
+          -
+          <div class="ti_title">
+            <p class="active">添加视图接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!View.length">请选择已有视图</option>
+                <option v-for="(item,index) in View" :key="index">{{item.view_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+      <div class="test_item">
+        <form action>
+          <div class="ti_title">
+            <p class="active">给身份设置api接口权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+            <p>
+              <select>
+                <option v-show="!Authority.length">请选择api接口权限id</option>
+                <option v-for="(item,index) in Authority" :key="index">{{item.api_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+      <div class="test_item">
+        <form action>
+          <div class="ti_title">
+            <p class="active">给身份设置视图权限</p>
+          </div>
+          <div class="ti_form">
+            <p>
+              <select>
+                <option v-show="!Identity.length">请选择身份id</option>
+                <option
+                  v-for="(item,index) in Identity"
+                  :key="index"
+                >{{item.identity_text!=='chenmanjie'?item.identity_text:null}}</option>
+              </select>
+            </p>
+            <p>
+              <select>
+                <option v-show="!Info.length">请选择视图接口权限id</option>
+                <option v-for="(item,index) in Info" :key="index">{{item.view_authority_text}}</option>
+              </select>
+            </p>
+          </div>
+          <div class="ti_button">
+            <button>确定</button>
+            <input type="reset" class="button" value="重置" />
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
-    data() {
-      return {
-        ruleForm: {
-          user_name: '',
-          user_pwd: '',
-          identity_id: '',
-          AddList:"",
-          shen:"",
-          permissions_name:"",
-          permissions_url:"",
-          permissions_list:""
-        },
-        value: ''
-      };
-    },
-    computed: {
-    },
-    methods: {
-      
-    },
-    mounted() {
-     
-    },
-  }
+  props: {},
+  components: {},
+  data() {
+    return {
+      ind: 0
+    };
+  },
+  computed: {
+    ...mapState({
+      UserList: state => state.jurisdiction.UserList,
+      Identity: state => state.jurisdiction.Identity,
+      Authority: state => state.jurisdiction.Authority,
+      View: state => state.jurisdiction.View,
+      Info: state => state.jurisdiction.Info
+    })
+  },
+  methods: {
+    ...mapActions({
+      showIdentity: "jurisdiction/showIdentity",
+      showUserList: "jurisdiction/showUserList",
+      apiAuthority: "jurisdiction/apiAuthority",
+      acquireView: "jurisdiction/acquireView",
+      showInfo: "jurisdiction/showInfo",
+      addUser: "jurisdiction/addUser"
+    })
+  },
+  async created() {
+    this.showIdentity();
+    this.showUserList();
+    this.acquireView();
+    this.apiAuthority();
+    this.showInfo();
+  },
+  mounted() {}
+};
 </script>
-
-<style lang="scss" scoped>
-    .demo-ruleForm1[data-v-9392a76a]{
-      text-align: left;
+<style scoped lang="scss">
+.usersadd {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f3f3f3;
+  padding: 1rem;
+  box-sizing: border-box;
+  h3 {
+    width: 100%;
+    font-weight: normal;
+    flex-shrink: 0;
+    margin: 1rem 0;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+  }
+  .test {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    border: 1px solid #ccc;
+    flex-wrap: wrap;
+    .test_item {
+      width: calc(100% / 3);
+      flex-shrink: 0;
+      border-right: 1px solid #ccc;
+      border-top: 1px solid #ccc;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        border-top: 0;
+      }
+      &:nth-child(3),
+      &:nth-child(6) {
+        border-right: 0;
+      }
+      .ti_title {
+        width: 100%;
+        display: flex;
+        p {
+          border: 1px solid#ccc;
+          font-size: 1rem;
+          padding: 0.2rem 0.5rem;
+          box-sizing: border-box;
+          background: #fff;
+          &.active {
+            border: 1px solid#00f;
+            color: #00f;
+          }
+        }
+      }
+      .ti_form {
+        width: 100%;
+        padding: 0.5rem 0;
+        box-sizing: border-box;
+        p {
+          width: 100%;
+          select {
+            width: calc(100% / 2);
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            outline: none;
+            padding: 0.15rem 0.5rem;
+            box-sizing: border-box;
+            font-size: 0.75rem;
+            display: block;
+            option {
+              width: 100%;
+              overflow: hidden;
+            }
+          }
+          input {
+            width: 100%;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            outline: none;
+            padding: 0.3rem 0.5rem;
+            box-sizing: border-box;
+            font-size: 0.75rem;
+          }
+        }
+      }
+      .ti_button {
+        width: 100%;
+        display: flex;
+        .button {
+          padding: 0.3rem 0;
+          box-sizing: border-box;
+          width: calc(100% / 5);
+          border: 0;
+          background: #fff;
+          font-size: 0.85rem;
+          outline: none;
+        }
+        button {
+          padding: 0.3rem 0;
+          box-sizing: border-box;
+          width: calc(100% / 5);
+          border: 0;
+          background: #fff;
+          font-size: 0.85rem;
+          outline: none;
+          &:first-child {
+            width: calc(100% / 3.5);
+            background-color: #4e75ff;
+            border-color: #4e75ff;
+            box-sizing: border-box;
+            border: 0;
+            border-radius: 2px;
+            color: #fff;
+            margin-right: 0.5rem;
+          }
+        }
+      }
     }
-    .demo-ruleForm{
-        position: absolute;
-        width: 400px;
-        height: 300px;
-        left: 50px;
-        top: 50px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
-    .demo-ruleForm1{
-        position: absolute;
-        width: 400px;
-        height: 300px;
-        left: 450px;
-        top: 50px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
-    .demo-ruleForm2{
-        position: absolute;
-        width: 400px;
-        height: 300px;
-        left: 850px;
-        top: 50px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
-    .demo-ruleForm3{
-        position: absolute;
-        width: 400px;
-        height: 280px;
-        left: 50px;
-        top: 350px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
-    .demo-ruleForm4{
-        position: absolute;
-        width: 400px;
-        height: 280px;
-        left: 450px;
-        top: 350px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
-    .demo-ruleForm5{
-        position: absolute;
-        width: 400px;
-        height: 280px;
-        left: 850px;
-        top: 350px;
-        text-align: left;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-    }
+  }
+}
 </style>
